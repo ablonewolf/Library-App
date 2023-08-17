@@ -1,0 +1,23 @@
+frontend/library-app/node_modules
+frontend/library-app/.pnp
+frontend/library-app/.pnp.js
+
+# testing
+frontend/library-app//coverage
+
+# production
+frontend/library-app/build
+
+# misc
+frontend/library-app/.DS_Store
+frontend/library-app/.env.local
+frontend/library-app/.env.development.local
+frontend/library-app/.env.test.local
+frontend/library-app/.env.production.local
+
+frontend/library-app/npm-debug.log*
+frontend/library-app/yarn-debug.log*
+frontend/library-app/yarn-error.log*
+
+# idea directory
+frontend/.idea
