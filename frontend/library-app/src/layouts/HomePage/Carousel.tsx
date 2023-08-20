@@ -1,4 +1,10 @@
+import {BookComponent} from "./BookComponent";
+import pythonBookImage from '../../Images/BooksImages/book-1000.png';
+import cSharpBookImage from '../../Images/BooksImages/new-book-1.png';
+import machineLearningBookImage from '../../Images/BooksImages/new-book-2.png';
+
 export const Carousel = () => {
+
     return (
         <div className='container mt-5' style={{height: 550}}>
             <div className='homepage-carousel-title'>
@@ -14,55 +20,22 @@ export const Carousel = () => {
                     <div className='carousel-item active'>
                         <div className='row d-flex justify-content-center
                             align-items-center'>
-                            <div className='col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3'>
-                                <div className='text-center'>
-                                    <img
-                                        src={require('../../Images/BooksImages/book-1000.png')}
-                                        width='151'
-                                        height='233'
-                                        alt='python book'
-                                    />
-                                    <h6 className="mt-2">Book</h6>
-                                    <p>Crash Course in Python</p>
-                                    <a href="#" className="btn main-color text-white">Reserve</a>
-                                </div>
-                            </div>
+                            <BookComponent source={pythonBookImage} alt={'Python Book'}
+                                           name={'Crash Course in Python'}/>
                         </div>
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center
                             align-items-center'>
-                            <div className='col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3'>
-                                <div className='text-center'>
-                                    <img
-                                        src={require('../../Images/BooksImages/new-book-1.png')}
-                                        width='151'
-                                        height='233'
-                                        alt='c# book'
-                                    />
-                                    <h6 className="mt-2">Book</h6>
-                                    <p>Advance C# Techniques</p>
-                                    <a href="#" className="btn main-color text-white">Reserve</a>
-                                </div>
-                            </div>
+                            <BookComponent source={cSharpBookImage} alt={'C# Book'}
+                                           name={'Advanced Techniques in C#'}/>
                         </div>
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center
                             align-items-center'>
-                            <div className='col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3'>
-                                <div className='text-center'>
-                                    <img
-                                        src={require('../../Images/BooksImages/new-book-2.png')}
-                                        width='151'
-                                        height='233'
-                                        alt='machine learning book'
-                                    />
-                                    <h6 className="mt-2">Book</h6>
-                                    <p>The Expert Guide to Machine Learning</p>
-                                    <a href="#" className="btn main-color text-white">Reserve</a>
-                                </div>
-                            </div>
+                            <BookComponent source={machineLearningBookImage} alt={'Machine Learning Book'}
+                                           name={'The Expert Guide to Machine Learning'}/>
                         </div>
                     </div>
                     <button className='carousel-control-prev' type='button'
