@@ -26,3 +26,6 @@ backend/.idea
 
 # mvn wrapper
 backend/.mvn
+
+# target classes
+backend/OnlineLibrary/target
