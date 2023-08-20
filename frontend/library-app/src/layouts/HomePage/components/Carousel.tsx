@@ -1,7 +1,7 @@
 import {BookComponent} from "./BookComponent";
-import pythonBookImage from '../../Images/BooksImages/book-1000.png';
-import cSharpBookImage from '../../Images/BooksImages/new-book-1.png';
-import machineLearningBookImage from '../../Images/BooksImages/new-book-2.png';
+import pythonBookImage from '../../../Images/BooksImages/book-1000.png';
+import cSharpBookImage from '../../../Images/BooksImages/new-book-1.png';
+import machineLearningBookImage from '../../../Images/BooksImages/new-book-2.png';
 import {ImageRenderComponent} from "./ImageRenderComponent";
 
 export const Carousel = () => {

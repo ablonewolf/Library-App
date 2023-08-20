@@ -1,4 +1,4 @@
-import {BookImage} from "../../Types/BookImage";
+import {BookImage} from "../../../Types/BookImage";
 import {ImageRenderComponent} from "./ImageRenderComponent";
 
 export const BookComponent = (bookImage: BookImage) => {
