@@ -1,23 +1,16 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./layouts/NavbarFooter/Navbar";
-import {ExploreTopBooks} from "./layouts/HomePage/ExploreTopBooks";
-import {Carousel} from "./layouts/HomePage/Carousel";
-import {BottomLayout} from "./layouts/HomePage/BottomLayout";
-import {LibraryServices} from "./layouts/HomePage/LibraryServices";
 import {Footer} from "./layouts/NavbarFooter/Footer";
+import {HomePage} from "./layouts/HomePage/HomePage";
 
-function App() {
+export const App = () => {
     return (
         <>
             <Navbar/>
-            <ExploreTopBooks/>
-            <Carousel/>
-            <BottomLayout/>
-            <LibraryServices/>
+            <HomePage/>
             <Footer/>
         </>
     );
 }
 
-export default App;
