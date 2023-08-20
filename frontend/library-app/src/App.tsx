@@ -3,6 +3,7 @@ import './App.css';
 import {Navbar} from "./layouts/NavbarFooter/Navbar";
 import {ExploreTopBooks} from "./layouts/HomePage/ExploreTopBooks";
 import {Carousel} from "./layouts/HomePage/Carousel";
+import {BottomLayout} from "./layouts/HomePage/BottomLayout";
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
             <Navbar/>
             <ExploreTopBooks/>
             <Carousel/>
+            <BottomLayout/>
         </>
     );
 }
