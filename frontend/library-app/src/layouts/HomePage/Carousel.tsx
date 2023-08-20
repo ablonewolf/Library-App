@@ -14,7 +14,7 @@ export const Carousel = () => {
                 </h3>
             </div>
             <div id='carouselExampleControls' className='carousel carousel-dark
-                 slide mt-5 d-lg-block' data-bs-interval='false'>
+                 slide mt-5 d-lg-block d-none' data-bs-interval='false'>
 
                 {/*{For Desktop}*/}
                 <div className='carousel-inner'>
@@ -53,7 +53,7 @@ export const Carousel = () => {
             </div>
 
             {/*For Mobile*/}
-            <div className='d-lg-none mt-3'>
+            <div className='d-lg-none mt-3 mb-3'>
                 <div className='row d-flex justify-content-center align-items-center'>
                     <ImageRenderComponent
                         source={pythonBookImage}
