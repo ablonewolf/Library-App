@@ -22,7 +22,7 @@ frontend/library-app/yarn-error.log*
 # idea directory
 frontend/.idea
 SQL_Scripts/.idea
-backend/.idea
+backend/OnlineLibrary/.idea
 
 # mvn wrapper
 backend/.mvn
