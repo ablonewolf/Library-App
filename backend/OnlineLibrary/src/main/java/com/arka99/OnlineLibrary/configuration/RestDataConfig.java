@@ -23,7 +23,7 @@ public class RestDataConfig implements RepositoryRestConfigurer {
         disableHttpMethods(Book.class, config, unsupportedMethods);
 
 //        configure CORS mapping
-        cors.addMapping(config.getBasePath() + "**/")
+        cors.addMapping(config.getBasePath() + "/**")
             .allowedOrigins(allowedOrigin);
     }
 
