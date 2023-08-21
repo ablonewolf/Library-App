@@ -1,0 +1,1 @@
+export const BookURL: string = `http://localhost:8080/api/books`;
