@@ -78,20 +78,18 @@ export const Carousel = () => {
 
                 {/*{For Desktop}*/}
                 <div className='carousel-inner'>
-                    <div className='carousel-item active'>
-                        <div className='row d-flex justify-content-center
-                            align-items-center'>
-                            <BookComponent book={books[0]} key={books[0].id}/>
-
-                        </div>
-                    </div>
-                    {books.slice(1).map(book => (
-                        <div className='carousel-item'>
-                            <div className='row d-flex justify-content-center
-                            align-items-center'>
-                                <BookComponent book={book} key={book.id}/>
+                    {books.map((book, index) => (
+                        // Check if the current index is a multiple of 3
+                        index % 3 === 0 && (
+                            <div className={index < 3 ? `carousel-item active` : 'carousel-item'} key={index}>
+                                <div className='row d-flex justify-content-center align-items-center'>
+                                    {/* Map the next three books or less if there are fewer remaining */}
+                                    {books.slice(index, index + 3).map(book => (
+                                        <BookComponent book={book} key={book.id} />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )
                     ))}
                     <button className='carousel-control-prev' type='button'
                             data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
