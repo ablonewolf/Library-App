@@ -79,11 +79,9 @@ export const Carousel = () => {
                 {/*{For Desktop}*/}
                 <div className='carousel-inner'>
                     {books.map((book, index) => (
-                        // Check if the current index is a multiple of 3
                         index % 3 === 0 && (
                             <div className={index < 3 ? `carousel-item active` : 'carousel-item'} key={index}>
                                 <div className='row d-flex justify-content-center align-items-center'>
-                                    {/* Map the next three books or less if there are fewer remaining */}
                                     {books.slice(index, index + 3).map(book => (
                                         <BookComponent book={book} key={book.id} />
                                     ))}
