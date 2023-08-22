@@ -90,14 +90,16 @@ export const SearchBooksPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='mt-3'>
-                        <h5>Number of results:{books.length}</h5>
+                    <div className="mt-3">
+                        <h5>
+                            Number of results:
+                        </h5>
                     </div>
                     <p>
-                        1 to 5 of 22 items:
+                        1 to 5 out of 22 items:
                     </p>
-                    {books.map(book => (
-                        <SearchBook book={book} key={book.id}/>
+                    {books.map((book, index) => (
+                        <SearchBook book={book} key={index}/>
                     ))}
                 </div>
             </div>
