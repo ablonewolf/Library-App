@@ -14,6 +14,13 @@ export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
                             height='196'
                         />
                     </div>
+                    <div className="d-lg-none d-flex justify-content-center align-items-center">
+                        <ImageRenderComponent
+                            book={props.book}
+                            width='123'
+                            height='196'
+                        />
+                    </div>
                 </div>
                 <div className="col-md-6">
                     <div className="card-body">
@@ -27,6 +34,11 @@ export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
                             {props.book.description}
                         </p>
                     </div>
+                </div>
+                <div className='col-md-4 d-flex justify-content-center align-items-center'>
+                    <a href="#" className='btn btn-md main-color text-white'>
+                        View Details
+                    </a>
                 </div>
             </div>
         </div>
