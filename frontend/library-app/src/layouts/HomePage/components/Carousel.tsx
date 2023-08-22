@@ -3,6 +3,7 @@ import {ImageRenderComponent} from "./ImageRenderComponent";
 import {useEffect, useState} from "react";
 import {BookModel} from "../../../models/entities/BookModel";
 import {BookURL} from "../../../models/constants/BookURL";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 
 export const Carousel = () => {
 
@@ -48,11 +49,7 @@ export const Carousel = () => {
 
     if (isLoading) {
         return (
-            <div className='container m-5'>
-                <p>
-                    Loading...
-                </p>
-            </div>
+            <SpinnerLoading/>
         );
     }
 
