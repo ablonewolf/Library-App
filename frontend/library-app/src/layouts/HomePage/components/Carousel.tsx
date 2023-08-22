@@ -2,8 +2,8 @@ import {BookComponent} from "./BookComponent";
 import {ImageRenderComponent} from "./ImageRenderComponent";
 import {useEffect, useState} from "react";
 import {BookModel} from "../../../models/entities/BookModel";
-import {BookURL} from "../../../models/constants/BookURL";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
+import {fetchBooks} from "../../../utils/fetchbooks";
 
 export const Carousel = () => {
 
@@ -13,39 +13,12 @@ export const Carousel = () => {
 
 
     useEffect(() => {
-        fetchBooks().catch((error: any) => {
+        fetchBooks(setBooks, setIsLoading, 9).catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
     }, [])
 
-    // method to fetch book data over rest api call
-    const fetchBooks = async () => {
-        const apiURL: string = `${BookURL}?page=0&size=9`;
-        const response = await fetch(apiURL);
-
-        if (!response.ok) {
-            throw new Error(`Something went wrong`);
-        }
-        const responseJson = await response.json();
-        const responseData = responseJson._embedded.books;
-        const loadedBooks: BookModel[] = [];
-
-        for (const key in responseData) {
-            loadedBooks.push({
-                id: responseData[key].id,
-                title: responseData[key].title,
-                author: responseData[key].author,
-                description: responseData[key].description,
-                copies: responseData[key].copies,
-                copiesAvailable: responseData[key].copiesAvailable,
-                category: responseData[key].category,
-                img: responseData[key].img
-            })
-        }
-        setBooks(loadedBooks);
-        setIsLoading(false);
-    }
 
     if (isLoading) {
         return (
@@ -80,7 +53,7 @@ export const Carousel = () => {
                             <div className={index < 3 ? `carousel-item active` : 'carousel-item'} key={index}>
                                 <div className='row d-flex justify-content-center align-items-center'>
                                     {books.slice(index, index + 3).map(book => (
-                                        <BookComponent book={book} key={book.id} />
+                                        <BookComponent book={book} key={book.id}/>
                                     ))}
                                 </div>
                             </div>
