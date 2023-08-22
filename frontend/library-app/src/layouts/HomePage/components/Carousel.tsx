@@ -1,5 +1,5 @@
 import {BookComponent} from "./BookComponent";
-import {ImageRenderComponent} from "./ImageRenderComponent";
+import {BookDetailsComponent} from "./BookDetailsComponent";
 import {useEffect, useState} from "react";
 import {BookModel} from "../../../models/entities/BookModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
@@ -75,7 +75,7 @@ export const Carousel = () => {
             {/*For Mobile*/}
             <div className='d-lg-none mt-3 mb-3'>
                 <div className='row d-flex justify-content-center align-items-center'>
-                    <ImageRenderComponent
+                    <BookDetailsComponent
                         book={books[6]}
                     />
                 </div>

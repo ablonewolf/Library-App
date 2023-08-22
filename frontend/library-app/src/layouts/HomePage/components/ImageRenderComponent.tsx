@@ -1,21 +1,29 @@
 import React from "react";
 import {BookModel} from "../../../models/entities/BookModel";
+import genericBookImage from "../../../Images/BooksImages/book-1000.png";
 
-export const ImageRenderComponent: React.FC<{ book: BookModel }> = (props) => {
+export const ImageRenderComponent: React.FC<{ book: BookModel, width: string, height: string }> = (props) => {
     return (
-        <div className='text-center'>
-            {props.book.img ?
-                (<img
-                    src={props.book.img}
-                    width='151'
-                    height='233'
-                    alt={props.book.title}
-                />)
-                : (<> </>)}
+            <>
+                {props.book.img ?
+                    (
+                        <img
+                            src={props.book.img}
+                            width={props.width}
+                            height={props.height}
+                            alt='Book'
+                        />
+                    )
+                    :
+                    (
+                        <img src={genericBookImage}
+                             width={props.width}
+                             height={props.height}
+                             alt='Book'
+                        />
+                    )
+                }
+            </>
 
-            <h6 className="mt-2">{props.book.title}</h6>
-            <p>{props.book.author}</p>
-            <a href="#" className="btn main-color text-white">Reserve</a>
-        </div>
-    )
+    );
 }
