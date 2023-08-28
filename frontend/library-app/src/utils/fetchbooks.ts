@@ -1,7 +1,12 @@
 import {BookURL} from "../models/constants/BookURL";
 import {BookModel} from "../models/entities/BookModel";
 
-export const fetchBooks = async (setBooks: (books: BookModel[]) => void, setIsLoading: (isLoading: boolean) => void, size: number, page = 0) => {
+export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
+                                 setIsLoading: (isLoading: boolean) => void,
+                                 setTotalAmountOfBooks: (totalBooks: number) => void,
+                                 setTotalPages: (totalPages: number) => void,
+                                 size: number,
+                                 page = 0) => {
     const apiURL: string = `${BookURL}?page=${page}&size=${size}`;
     const response = await fetch(apiURL);
 
@@ -10,6 +15,8 @@ export const fetchBooks = async (setBooks: (books: BookModel[]) => void, setIsLo
     }
     const responseJson = await response.json();
     const responseData = responseJson._embedded.books;
+    setTotalAmountOfBooks(responseJson.page.totalElements ?? 0);
+    setTotalPages(responseJson.page.totalPages ?? 0);
     const loadedBooks: BookModel[] = [];
 
     for (const key in responseData) {

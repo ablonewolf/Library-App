@@ -10,13 +10,22 @@ export const Carousel = () => {
     const [books, setBooks] = useState<BookModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
+    const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
 
 
     useEffect(() => {
-        fetchBooks(setBooks, setIsLoading, 9).catch((error: any) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        })
+        fetchBooks(
+            setBooks,
+            setIsLoading,
+            setTotalAmountOfBooks,
+            setTotalPages,
+            9
+        )
+            .catch((error: any) => {
+                setIsLoading(false);
+                setHttpError(error.message);
+            })
     }, [])
 
 
