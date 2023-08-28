@@ -20,7 +20,7 @@ frontend/library-app/yarn-debug.log*
 frontend/library-app/yarn-error.log*
 
 # idea directory
-frontend/.idea
+frontend/library-app/.idea
 SQL_Scripts/.idea
 backend/OnlineLibrary/.idea
 
