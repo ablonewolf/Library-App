@@ -27,7 +27,8 @@ export const SearchBooksPage = () => {
             currentPage - 1,
             setTotalAmountOfBooks,
             setTotalPages,
-            searchUrl
+            searchUrl,
+            currentPage
         )
             .catch((error: any) => {
                 setIsLoading(false);
@@ -56,15 +57,18 @@ export const SearchBooksPage = () => {
         booksPerPage * currentPage : totalAmountOfBooks;
 
     const handleChangeInSearchBox = () => {
+        setCurrentPage(1);
         if (search === '') {
             setSearchUrl('');
         } else {
-            setSearchUrl(`/search/findBookByTitleContaining?title=${search}&page=0&size=${booksPerPage}`)
+            setSearchUrl(`/search/findBookByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`)
         }
+        setCategorySelection('Book Category');
     }
 
 
     const handleCategorySelection = (value: string) => {
+        setCurrentPage(1);
         if (
             value.toLowerCase() === 'fe' ||
             value.toLowerCase() === 'be' ||
@@ -73,7 +77,7 @@ export const SearchBooksPage = () => {
             value.toLowerCase() === 'linux'
         ) {
             setCategorySelection(CategoryMappings[value]);
-            setSearchUrl(`/search/findBookByCategory?category=${value}&page=0&size=${booksPerPage}`);
+            setSearchUrl(`/search/findBookByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`);
         } else {
             setCategorySelection('All');
             setSearchUrl(`?page=0&size=${booksPerPage}`);
