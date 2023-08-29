@@ -4,6 +4,7 @@ import {fetchBooks} from "../../utils/fetchBooks";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {SearchBook} from "./components/SearchBook";
 import {Pagination} from "../../utils/Pagination";
+import {CategoryMappings} from "../../models/constants/CategoryMappings";
 
 export const SearchBooksPage = () => {
 
@@ -16,6 +17,7 @@ export const SearchBooksPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
     const [searchUrl, setSearchUrl] = useState('');
+    const [categorySelection, setCategorySelection] = useState('Book Category');
 
     useEffect(() => {
         fetchBooks(
@@ -39,7 +41,6 @@ export const SearchBooksPage = () => {
             <SpinnerLoading/>
         );
     }
-    console.log(books)
     if (httpError) {
         return (
             <div className='container m-5'>
@@ -59,6 +60,23 @@ export const SearchBooksPage = () => {
             setSearchUrl('');
         } else {
             setSearchUrl(`/search/findBookByTitleContaining?title=${search}&page=0&size=${booksPerPage}`)
+        }
+    }
+
+
+    const handleCategorySelection = (value: string) => {
+        if (
+            value.toLowerCase() === 'fe' ||
+            value.toLowerCase() === 'be' ||
+            value.toLowerCase() === 'devops' ||
+            value.toLowerCase() === 'database' ||
+            value.toLowerCase() === 'linux'
+        ) {
+            setCategorySelection(CategoryMappings[value]);
+            setSearchUrl(`/search/findBookByCategory?category=${value}&page=0&size=${booksPerPage}`);
+        } else {
+            setCategorySelection('All');
+            setSearchUrl(`?page=0&size=${booksPerPage}`);
         }
     }
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -85,39 +103,45 @@ export const SearchBooksPage = () => {
                         </div>
                         <div className='col-4'>
                             <div className='dropdown'>
-                                <button className='btn btn-secondary dropdown-toggle'
-                                        type='button'
-                                        id='dropdownMenuButton1'
-                                        data-bs-toggle='dropdown'
-                                        aria-expanded='false'
+                                <button
+                                    className='btn btn-secondary dropdown-toggle'
+                                    type='button'
+                                    id='dropdownMenuButton1'
+                                    data-bs-toggle='dropdown'
+                                    aria-expanded='false'
                                 >
-                                    Category
+                                    {categorySelection}
                                 </button>
                                 <ul className="dropdown-menu"
                                     aria-labelledby='dropdownMenuButton1'>
-                                    <li>
+                                    <li onClick={() => handleCategorySelection('All')}>
                                         <a href='#' className="dropdown-item">
                                             ALL
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => handleCategorySelection('be')}>
                                         <a href="#" className="dropdown-item">
                                             Back-End
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => handleCategorySelection('fe')}>
                                         <a href="#" className="dropdown-item">
                                             Front-End
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => handleCategorySelection('database')}>
                                         <a href="#" className="dropdown-item">
                                             Database
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => handleCategorySelection('devops')}>
                                         <a href="#" className="dropdown-item">
                                             DevOps
+                                        </a>
+                                    </li>
+                                    <li onClick={() => handleCategorySelection('linux')}>
+                                        <a href="#" className="dropdown-item">
+                                            Linux
                                         </a>
                                     </li>
                                 </ul>
