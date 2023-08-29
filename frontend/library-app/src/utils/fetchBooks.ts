@@ -6,8 +6,16 @@ export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
                                  size: number,
                                  page = 0,
                                  setTotalAmountOfBooks?: (totalBooks: number) => void,
-                                 setTotalPages?: (totalPages: number) => void,) => {
-    const apiURL: string = `${BookURL}?page=${page}&size=${size}`;
+                                 setTotalPages?: (totalPages: number) => void,
+                                 searchUrl?: string) => {
+    let apiURL: string = ``;
+    if (searchUrl) {
+        if (searchUrl !== '') {
+            apiURL = `${BookURL}${searchUrl}`;
+        }
+    } else {
+        apiURL = `${BookURL}?page=${page}&size=${size}`;
+    }
     const response = await fetch(apiURL);
 
     if (!response.ok) {

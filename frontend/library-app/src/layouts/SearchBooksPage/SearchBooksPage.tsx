@@ -14,6 +14,8 @@ export const SearchBooksPage = () => {
     const [booksPerPage] = useState(5);
     const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [search, setSearch] = useState('');
+    const [searchUrl, setSearchUrl] = useState('');
 
     useEffect(() => {
         fetchBooks(
@@ -22,14 +24,15 @@ export const SearchBooksPage = () => {
             booksPerPage,
             currentPage - 1,
             setTotalAmountOfBooks,
-            setTotalPages
+            setTotalPages,
+            searchUrl
         )
             .catch((error: any) => {
                 setIsLoading(false);
                 setHttpError(error.message);
             })
         window.scrollTo(0, 0);
-    }, [currentPage])
+    }, [currentPage, searchUrl])
 
     if (isLoading) {
         return (
@@ -50,6 +53,14 @@ export const SearchBooksPage = () => {
     const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
     let lastItem = booksPerPage * currentPage <= totalAmountOfBooks ?
         booksPerPage * currentPage : totalAmountOfBooks;
+
+    const handleChangeInSearchBox = () => {
+        if (search === '') {
+            setSearchUrl('');
+        } else {
+            setSearchUrl(`/search/findBookByTitleContaining?title=${search}&page=0&size=${booksPerPage}`)
+        }
+    }
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     return (
@@ -63,8 +74,11 @@ export const SearchBooksPage = () => {
                                        className="form-control me-2"
                                        placeholder='Search'
                                        aria-labelledby='Search'
+                                       onChange={e => setSearch(e.target.value)}
                                 />
-                                <button className='btn btn-outline-success'>
+                                <button
+                                    className='btn btn-outline-success'
+                                    onClick={handleChangeInSearchBox}>
                                     Search
                                 </button>
                             </div>
@@ -110,20 +124,38 @@ export const SearchBooksPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <h5>
-                            Number of results: {totalAmountOfBooks}
-                        </h5>
-                    </div>
-                    <p>
-                        {indexOfFirstBook + 1} to {lastItem} out of {totalAmountOfBooks} items:
-                    </p>
-                    {books.map((book, index) => (
-                        <SearchBook
-                            book={book}
-                            key={index}
-                        />
-                    ))}
+                    {totalAmountOfBooks > 0 ?
+                        <>
+                            <div className="mt-3">
+                                <h5>
+                                    Number of results: {totalAmountOfBooks}
+                                </h5>
+                            </div>
+                            <p>
+                                {indexOfFirstBook + 1} to {lastItem} out of {totalAmountOfBooks} items:
+                            </p>
+                            {books.map((book, index) => (
+                                <SearchBook
+                                    book={book}
+                                    key={index}
+                                />
+                            ))}
+                        </>
+                        :
+                        <div className='m-5'>
+                            <h3>
+                                Can't find what you are looking for
+                            </h3>
+                            <a
+                                href="#"
+                                type='button'
+                                className='btn main-color btn-md px-4 me-md-2 fw-bold text-white'
+                            >
+                                Library Services
+                            </a>
+                        </div>
+                    }
+
                     {totalPages > 1 &&
                         <Pagination
                             currentPage={currentPage}
