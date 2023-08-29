@@ -3,23 +3,19 @@ import {BookDetailsComponent} from "./BookDetailsComponent";
 import {useEffect, useState} from "react";
 import {BookModel} from "../../../models/entities/BookModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
-import {fetchBooks} from "../../../utils/fetchbooks";
+import {fetchBooks} from "../../../utils/fetchBooks";
 
 export const Carousel = () => {
 
     const [books, setBooks] = useState<BookModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
-    const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
 
 
     useEffect(() => {
         fetchBooks(
             setBooks,
             setIsLoading,
-            setTotalAmountOfBooks,
-            setTotalPages,
             9
         )
             .catch((error: any) => {

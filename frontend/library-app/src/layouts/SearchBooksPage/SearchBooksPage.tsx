@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {BookModel} from "../../models/entities/BookModel";
-import {fetchBooks} from "../../utils/fetchbooks";
+import {fetchBooks} from "../../utils/fetchBooks";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {SearchBook} from "./components/SearchBook";
 import {Pagination} from "../../utils/Pagination";
@@ -19,10 +19,10 @@ export const SearchBooksPage = () => {
         fetchBooks(
             setBooks,
             setIsLoading,
-            setTotalAmountOfBooks,
-            setTotalPages,
             booksPerPage,
-            currentPage - 1
+            currentPage - 1,
+            setTotalAmountOfBooks,
+            setTotalPages
         )
             .catch((error: any) => {
                 setIsLoading(false);
