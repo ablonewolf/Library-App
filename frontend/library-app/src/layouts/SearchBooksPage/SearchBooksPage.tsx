@@ -13,7 +13,7 @@ export const SearchBooksPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage, setBooksPerPage] = useState(5);
+    const [booksPerPage, setBooksPerPage] = useState(2);
     const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
@@ -58,7 +58,7 @@ export const SearchBooksPage = () => {
 
     const handleChangeInSearchBox = () => {
         setCurrentPage(1);
-        setBooksPerPage(5);
+        setBooksPerPage(2);
         if (search === '') {
             setSearchUrl('');
         } else {
@@ -69,7 +69,7 @@ export const SearchBooksPage = () => {
 
 
     const handleCategorySelection = (value: string) => {
-        setBooksPerPage(5);
+        setBooksPerPage(2);
         setCurrentPage(1);
         if (
             value.toLowerCase() === 'fe' ||
@@ -167,6 +167,11 @@ export const SearchBooksPage = () => {
                                 </button>
                                 <ul className="dropdown-menu"
                                     aria-labelledby='dropdownMenuButton2'>
+                                    <li onClick={() => setBooksPerPage(2)}>
+                                        <Link to='#' className="dropdown-item">
+                                            2
+                                        </Link>
+                                    </li>
                                     <li onClick={() => setBooksPerPage(3)}>
                                         <Link to='#' className="dropdown-item">
                                             3
