@@ -82,6 +82,7 @@ export const SearchBooksPage = () => {
             setCategorySelection('All');
             setSearchUrl(`?page=0&size=${booksPerPage}`);
         }
+        setSearch('');
     }
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -97,6 +98,7 @@ export const SearchBooksPage = () => {
                                        placeholder='Search'
                                        aria-labelledby='Search'
                                        onChange={e => setSearch(e.target.value)}
+                                       value={search}
                                 />
                                 <button
                                     className='btn btn-outline-success'
