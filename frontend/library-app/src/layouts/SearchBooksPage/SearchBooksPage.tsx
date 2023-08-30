@@ -13,7 +13,7 @@ export const SearchBooksPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage] = useState(5);
+    const [booksPerPage, setBooksPerPage] = useState(5);
     const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
@@ -58,6 +58,7 @@ export const SearchBooksPage = () => {
 
     const handleChangeInSearchBox = () => {
         setCurrentPage(1);
+        setBooksPerPage(5);
         if (search === '') {
             setSearchUrl('');
         } else {
@@ -68,6 +69,7 @@ export const SearchBooksPage = () => {
 
 
     const handleCategorySelection = (value: string) => {
+        setBooksPerPage(5);
         setCurrentPage(1);
         if (
             value.toLowerCase() === 'fe' ||
@@ -83,6 +85,7 @@ export const SearchBooksPage = () => {
             setSearchUrl(`?page=0&size=${booksPerPage}`);
         }
         setSearch('');
+
     }
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -90,12 +93,12 @@ export const SearchBooksPage = () => {
         <div>
             <div className='container'>
                 <div>
-                    <div className='row mt-5'>
-                        <div className="col-6">
+                    <div className='row g-2 mt-5'>
+                        <div className="col-md-6 col-sm-12">
                             <div className='d-flex'>
                                 <input type="search"
                                        className="form-control me-2"
-                                       placeholder='Search'
+                                       placeholder='Search Books By Title'
                                        aria-labelledby='Search'
                                        onChange={e => setSearch(e.target.value)}
                                        value={search}
@@ -107,8 +110,8 @@ export const SearchBooksPage = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className='col-4'>
-                            <div className='dropdown'>
+                        <div className='col-md-6 col-sm-12 d-flex justify-content-start'>
+                            <div className='dropdown me-3'>
                                 <button
                                     className='btn btn-secondary dropdown-toggle'
                                     type='button'
@@ -148,6 +151,50 @@ export const SearchBooksPage = () => {
                                     <li onClick={() => handleCategorySelection('linux')}>
                                         <Link to="#" className="dropdown-item">
                                             Linux
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className='dropdown'>
+                                <button
+                                    className='btn btn-secondary dropdown-toggle'
+                                    type='button'
+                                    id='dropdownMenuButton2'
+                                    data-bs-toggle='dropdown'
+                                    aria-expanded='false'
+                                >
+                                    Books Per Page: {booksPerPage}
+                                </button>
+                                <ul className="dropdown-menu"
+                                    aria-labelledby='dropdownMenuButton2'>
+                                    <li onClick={() => setBooksPerPage(3)}>
+                                        <Link to='#' className="dropdown-item">
+                                            3
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setBooksPerPage(4)}>
+                                        <Link to="#" className="dropdown-item">
+                                            4
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setBooksPerPage(5)}>
+                                        <Link to="#" className="dropdown-item">
+                                            5
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setBooksPerPage(6)}>
+                                        <Link to="#" className="dropdown-item">
+                                            6
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setBooksPerPage(7)}>
+                                        <Link to="#" className="dropdown-item">
+                                            7
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setBooksPerPage(8)}>
+                                        <Link to="#" className="dropdown-item">
+                                            8
                                         </Link>
                                     </li>
                                 </ul>
