@@ -5,6 +5,7 @@ import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {SearchBook} from "./components/SearchBook";
 import {Pagination} from "../../utils/Pagination";
 import {CategoryMappings} from "../../models/constants/CategoryMappings";
+import {Link} from "react-router-dom";
 
 export const SearchBooksPage = () => {
 
@@ -176,13 +177,13 @@ export const SearchBooksPage = () => {
                             <h3>
                                 Can't find what you are looking for
                             </h3>
-                            <a
-                                href="#"
+                            <Link
+                                to="/search"
                                 type='button'
                                 className='btn main-color btn-md px-4 me-md-2 fw-bold text-white'
                             >
                                 Library Services
-                            </a>
+                            </Link>
                         </div>
                     }
 
