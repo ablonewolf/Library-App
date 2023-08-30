@@ -3,7 +3,7 @@ import {BookDetailsComponent} from "./BookDetailsComponent";
 import {useEffect, useState} from "react";
 import {BookModel} from "../../../models/entities/BookModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
-import {fetchBooks} from "../../../utils/fetchBooks";
+import {fetchBooks} from "../../../APIConsumMethods/fetchBooks";
 import {Link} from "react-router-dom";
 
 export const Carousel = () => {

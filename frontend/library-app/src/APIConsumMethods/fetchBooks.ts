@@ -1,4 +1,4 @@
-import {BookURL} from "../models/constants/BookURL";
+import {BaseURL} from "../models/constants/BaseURL";
 import {BookModel} from "../models/entities/BookModel";
 
 export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
@@ -11,11 +11,11 @@ export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
     let apiURL: string = ``;
     if (searchUrl) {
         if (searchUrl !== '') {
-            let searchWithPage = searchUrl.replace('<pageNumber>',`${page}`)
-            apiURL = `${BookURL}${searchWithPage}`;
+            let searchWithPage = searchUrl.replace('<pageNumber>', `${page}`)
+            apiURL = `${BaseURL}${searchWithPage}`;
         }
     } else {
-        apiURL = `${BookURL}?page=${page}&size=${size}`;
+        apiURL = `${BaseURL}?page=${page}&size=${size}`;
     }
     const response = await fetch(apiURL);
 

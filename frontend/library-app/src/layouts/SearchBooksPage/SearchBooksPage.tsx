@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {BookModel} from "../../models/entities/BookModel";
-import {fetchBooks} from "../../utils/fetchBooks";
+import {fetchBooks} from "../../APIConsumMethods/fetchBooks";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {SearchBook} from "./components/SearchBook";
 import {Pagination} from "../../utils/Pagination";
