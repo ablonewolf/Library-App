@@ -28,15 +28,14 @@ export const SearchBooksPage = () => {
             currentPage - 1,
             setTotalAmountOfBooks,
             setTotalPages,
-            searchUrl,
-            currentPage
+            searchUrl
         )
             .catch((error: any) => {
                 setIsLoading(false);
                 setHttpError(error.message);
             })
         window.scrollTo(0, 0);
-    }, [currentPage, searchUrl])
+    }, [currentPage, searchUrl, booksPerPage])
 
     if (isLoading) {
         return (
@@ -122,34 +121,34 @@ export const SearchBooksPage = () => {
                                 <ul className="dropdown-menu"
                                     aria-labelledby='dropdownMenuButton1'>
                                     <li onClick={() => handleCategorySelection('All')}>
-                                        <a href='#' className="dropdown-item">
+                                        <Link to='#' className="dropdown-item">
                                             ALL
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li onClick={() => handleCategorySelection('be')}>
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             Back-End
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li onClick={() => handleCategorySelection('fe')}>
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             Front-End
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li onClick={() => handleCategorySelection('database')}>
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             Database
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li onClick={() => handleCategorySelection('devops')}>
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             DevOps
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li onClick={() => handleCategorySelection('linux')}>
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             Linux
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
