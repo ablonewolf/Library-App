@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {BookModel} from "../../models/entities/BookModel";
 import {fetchSingleBook} from "../../APIConsumMethods/fetchSingleBook";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
+import {CategoryMappings} from "../../models/constants/CategoryMappings";
 
 export const BookCheckoutPage = () => {
 
@@ -51,7 +52,7 @@ export const BookCheckoutPage = () => {
                         <p className='text-center'>
                             Write of the book: <b>{book.author}</b> <br/>
                             Copies available: <b>{book.copiesAvailable}</b> <br/>
-                            Category of the book: <b>{book.category}</b> <br/>
+                            Category of the book: <b>{CategoryMappings[book.category?.toLowerCase() ?? 'Nothing']}</b> <br/>
                         </p>
                     </>
 
