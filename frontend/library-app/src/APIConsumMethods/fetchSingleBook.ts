@@ -8,12 +8,12 @@ export const fetchSingleBook = async (setBook: (book: BookModel) => void,
     if (bookID) {
         apiURL = `${BaseURL}/${bookID}`;
         const response = await fetch(apiURL);
-        console.log(response);
+        // console.log(response);
         if (!response.ok) {
             throw new Error(`Something went wrong`);
         }
         const responseJson = await response.json();
-        console.log(responseJson);
+        // console.log(responseJson);
         const loadedBook: BookModel = {
             id: responseJson.id,
             title: responseJson.title,

@@ -42,6 +42,25 @@ export const BookCheckoutPage = () => {
 
     return (
         <div>
+            {book ?
+                (
+                    <>
+                        <h3 className='text-center'>
+                            Name of the book : {book?.title}
+                        </h3>
+                        <p className='text-center'>
+                            Write of the book: <b>{book.author}</b> <br/>
+                            Copies available: <b>{book.copiesAvailable}</b> <br/>
+                            Category of the book: <b>{book.category}</b> <br/>
+                        </p>
+                    </>
+
+                ) :
+                (
+                    <>
+                    </>
+                )
+            }
 
         </div>
     );
