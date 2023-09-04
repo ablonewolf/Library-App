@@ -83,7 +83,7 @@ export const BookCheckoutPage = () => {
                                 {book?.description}
                             </p>
                             <StarsReview
-                                rating={4}
+                                rating={2.5}
                                 size={32}
                             />
                         </div>
@@ -124,6 +124,10 @@ export const BookCheckoutPage = () => {
                         <p className='lead'>
                             {book?.description}
                         </p>
+                        <StarsReview
+                            rating={2.5}
+                            size={32}
+                        />
                     </div>
                 </div>
                 <hr/>
