@@ -5,6 +5,7 @@ import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {CategoryMappings} from "../../models/constants/CategoryMappings";
 import genericBookImg from '../../Images/BooksImages/book-1000.png';
 import {StarsReview} from "../../utils/StarsReview";
+import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 
 export const BookCheckoutPage = () => {
 
@@ -45,9 +46,11 @@ export const BookCheckoutPage = () => {
 
     return (
         <div>
+
+            {/*for larger screens*/}
             <div className='container d-none d-lg-block'>
                 <div className='row mt-5'>
-                    <div className="col-md-2">
+                    <div className="col-md-2 col-sm-2">
                         {
                             book?.img ?
                                 (
@@ -68,7 +71,7 @@ export const BookCheckoutPage = () => {
                                 )
                         }
                     </div>
-                    <div className='col-4 container'>
+                    <div className='col-4 col-md-4 container'>
                         <div className="ml-2">
                             <h2>
                                 {book?.title}
@@ -88,9 +91,12 @@ export const BookCheckoutPage = () => {
                             />
                         </div>
                     </div>
+                    <CheckoutAndReviewBox book={book} mobile={false}/>
                 </div>
                 <hr/>
             </div>
+
+            {/*for mobile device*/}
             <div className='container d-lg-none mt-5'>
                 <div className='d-flex justify-content-center align-items-center'>
                     {
@@ -130,6 +136,7 @@ export const BookCheckoutPage = () => {
                         />
                     </div>
                 </div>
+                <CheckoutAndReviewBox book={book} mobile={true}/>
                 <hr/>
             </div>
         </div>
