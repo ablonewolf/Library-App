@@ -4,6 +4,7 @@ import {fetchSingleBook} from "../../APIConsumMethods/fetchSingleBook";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {CategoryMappings} from "../../models/constants/CategoryMappings";
 import genericBookImg from '../../Images/BooksImages/book-1000.png';
+import {StarsReview} from "../../utils/StarsReview";
 
 export const BookCheckoutPage = () => {
 
@@ -73,14 +74,18 @@ export const BookCheckoutPage = () => {
                                 {book?.title}
                             </h2>
                             <h5 className='text-primary'>
-                               {book?.author}
+                                {book?.author}
                             </h5>
                             <h5 className='text-black'>
-                               {`Book for ${CategoryMappings[book?.category?.toLowerCase() ?? 'Does not have a labelled category.']}`}
+                                {`Book for ${CategoryMappings[book?.category?.toLowerCase() ?? 'Does not have a labelled category.']}`}
                             </h5>
                             <p className='lead'>
                                 {book?.description}
                             </p>
+                            <StarsReview
+                                rating={4}
+                                size={32}
+                            />
                         </div>
                     </div>
                 </div>
