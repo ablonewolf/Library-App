@@ -3,6 +3,7 @@ import {BookModel} from "../../models/entities/BookModel";
 import {fetchSingleBook} from "../../APIConsumMethods/fetchSingleBook";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {CategoryMappings} from "../../models/constants/CategoryMappings";
+import genericBookImg from '../../Images/BooksImages/book-1000.png';
 
 export const BookCheckoutPage = () => {
 
@@ -43,26 +44,85 @@ export const BookCheckoutPage = () => {
 
     return (
         <div>
-            {book ?
-                (
-                    <>
-                        <h3 className='text-center'>
-                            Name of the book : {book?.title}
-                        </h3>
-                        <p className='text-center'>
-                            Write of the book: <b>{book.author}</b> <br/>
-                            Copies available: <b>{book.copiesAvailable}</b> <br/>
-                            Category of the book: <b>{CategoryMappings[book.category?.toLowerCase() ?? 'Nothing']}</b> <br/>
+            <div className='container d-none d-lg-block'>
+                <div className='row mt-5'>
+                    <div className="col-md-2">
+                        {
+                            book?.img ?
+                                (
+                                    <img
+                                        src={book?.img}
+                                        width='226'
+                                        height='349'
+                                        alt='book'
+                                    />
+                                ) :
+                                (
+                                    <img
+                                        src={genericBookImg}
+                                        width='226'
+                                        height='349'
+                                        alt='book'
+                                    />
+                                )
+                        }
+                    </div>
+                    <div className='col-4 container'>
+                        <div className="ml-2">
+                            <h2>
+                                {book?.title}
+                            </h2>
+                            <h5 className='text-primary'>
+                               {book?.author}
+                            </h5>
+                            <h5 className='text-black'>
+                               {`Book for ${CategoryMappings[book?.category?.toLowerCase() ?? 'Does not have a labelled category.']}`}
+                            </h5>
+                            <p className='lead'>
+                                {book?.description}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+            </div>
+            <div className='container d-lg-none mt-5'>
+                <div className='d-flex justify-content-center align-items-center'>
+                    {
+                        book?.img ?
+                            (
+                                <img
+                                    src={book?.img}
+                                    width='226'
+                                    height='349'
+                                    alt='book'
+                                />
+                            ) :
+                            (
+                                <img
+                                    src={genericBookImg}
+                                    width='226'
+                                    height='349'
+                                    alt='book'
+                                />
+                            )
+                    }
+                </div>
+                <div className='mt-4'>
+                    <div className='ml-2'>
+                        <h2>
+                            {book?.title}
+                        </h2>
+                        <h5 className='text-primary'>
+                            {book?.author}
+                        </h5>
+                        <p className='lead'>
+                            {book?.description}
                         </p>
-                    </>
-
-                ) :
-                (
-                    <>
-                    </>
-                )
-            }
-
+                    </div>
+                </div>
+                <hr/>
+            </div>
         </div>
     );
 }
