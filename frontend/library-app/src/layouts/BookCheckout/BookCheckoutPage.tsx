@@ -163,11 +163,11 @@ export const BookCheckoutPage = () => {
                         <p className='lead'>
                             {book?.description}
                         </p>
-                        <h3 className='text-black'>
+                        <h3 className='d-inline-block text-black'>
                             Average Rating
                         </h3>
                         <StarsReview
-                            rating={2.5}
+                            rating={averageRating}
                             size={32}
                         />
                     </div>
