@@ -6,17 +6,22 @@ import {CategoryMappings} from "../../models/constants/CategoryMappings";
 import genericBookImg from '../../Images/BooksImages/book-1000.png';
 import {StarsReview} from "../../utils/StarsReview";
 import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
+import {ReviewModel} from "../../models/entities/ReviewModel";
+import {fetchReviewsByBookId} from "../../APIConsumMethods/fetchReviewsByBookId";
 
 export const BookCheckoutPage = () => {
 
     const [book, setBook] = useState<BookModel>();
     const [isLoadingBook, setIsLoadingBook] = useState(true);
     const [httpError, setHttpError] = useState(null);
+    const [reviews, setReviews] = useState<ReviewModel[]>([]);
+    const [isLoadingReviews, setIsLoadingReviews] = useState(true);
 
     // grab the book ID from the URL
     const bookId = Number((window.location.pathname).split('/')[2]);
     console.log(bookId);
 
+    // fetch a book by its id
     useEffect(() => {
         fetchSingleBook(
             setBook,
@@ -28,6 +33,20 @@ export const BookCheckoutPage = () => {
                 setHttpError(error.message);
             })
     }, [bookId])
+
+    // fetch reviews of a book by the book Id
+    useEffect(() => {
+        fetchReviewsByBookId(
+            setReviews,
+            setIsLoadingReviews,
+            bookId
+        )
+            .catch((error: any) => {
+                setIsLoadingReviews(false);
+                setHttpError(error.message);
+            })
+    }, [bookId]);
+
     if (isLoadingBook) {
         return (
             <SpinnerLoading/>
