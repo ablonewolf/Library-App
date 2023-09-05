@@ -8,6 +8,7 @@ import {StarsReview} from "../../utils/StarsReview";
 import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 import {ReviewModel} from "../../models/entities/ReviewModel";
 import {fetchReviewsByBookId} from "../../APIConsumMethods/fetchReviewsByBookId";
+import {LatestReviews} from "./LatestReviews";
 
 export const BookCheckoutPage = () => {
 
@@ -16,6 +17,7 @@ export const BookCheckoutPage = () => {
     const [httpError, setHttpError] = useState(null);
     const [reviews, setReviews] = useState<ReviewModel[]>([]);
     const [isLoadingReviews, setIsLoadingReviews] = useState(true);
+    const [averageRating, setAverageRating] = useState(0);
 
     // grab the book ID from the URL
     const bookId = Number((window.location.pathname).split('/')[2]);
@@ -39,6 +41,7 @@ export const BookCheckoutPage = () => {
         fetchReviewsByBookId(
             setReviews,
             setIsLoadingReviews,
+            setAverageRating,
             bookId
         )
             .catch((error: any) => {
@@ -47,7 +50,7 @@ export const BookCheckoutPage = () => {
             })
     }, [bookId]);
 
-    if (isLoadingBook) {
+    if (isLoadingBook || isLoadingReviews) {
         return (
             <SpinnerLoading/>
         );
@@ -104,15 +107,26 @@ export const BookCheckoutPage = () => {
                             <p className='lead'>
                                 {book?.description}
                             </p>
+                            <h3 className='d-inline-block text-black'>
+                                Average Rating
+                            </h3>
                             <StarsReview
-                                rating={2.5}
+                                rating={averageRating}
                                 size={32}
                             />
                         </div>
                     </div>
-                    <CheckoutAndReviewBox book={book} mobile={false}/>
+                    <CheckoutAndReviewBox
+                        book={book}
+                        mobile={false}
+                    />
                 </div>
                 <hr/>
+                <LatestReviews
+                    reviews={reviews}
+                    bookId={bookId}
+                    mobile={false}
+                />
             </div>
 
             {/*for mobile device*/}
@@ -149,14 +163,25 @@ export const BookCheckoutPage = () => {
                         <p className='lead'>
                             {book?.description}
                         </p>
+                        <h3 className='text-black'>
+                            Average Rating
+                        </h3>
                         <StarsReview
                             rating={2.5}
                             size={32}
                         />
                     </div>
                 </div>
-                <CheckoutAndReviewBox book={book} mobile={true}/>
+                <CheckoutAndReviewBox
+                    book={book}
+                    mobile={true}
+                />
                 <hr/>
+                <LatestReviews
+                    reviews={reviews}
+                    bookId={bookId}
+                    mobile={true}
+                />
             </div>
         </div>
     );

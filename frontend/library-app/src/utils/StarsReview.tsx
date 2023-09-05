@@ -4,13 +4,24 @@ import {HalfStar} from "./stars/HalfStar";
 import {EmptyStar} from "./stars/EmptyStar";
 
 export const StarsReview: React.FC<{ rating: number, size: number }> = (props) => {
-    const fullStars = Math.floor(props.rating);
-    const halfStars = props.rating - fullStars;
-    const emptyStars = 5 - Math.ceil(props.rating);
+    let fullStars = Math.floor(props.rating);
+    const fractionValue = props.rating - fullStars;
+    let halfStars = 0;
+    let emptyStars = 5 - Math.ceil(props.rating);
+    if (fractionValue > 0) {
+        if (fractionValue > 0.25 && fractionValue < .75) {
+            halfStars = 1;
+        } else if (fractionValue >= .75) {
+            fullStars += 1;
+        } else {
+            emptyStars += 1;
+        }
+    }
+
     return (
         <div>
             {
-                Array.from({length: Math.floor(props.rating)}, (_, i) =>
+                Array.from({length: fullStars}, (_, i) =>
                     <FullStar key={i} size={props.size}/>)
             }
             {

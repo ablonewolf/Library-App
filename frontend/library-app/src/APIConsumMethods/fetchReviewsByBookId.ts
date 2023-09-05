@@ -2,9 +2,10 @@ import {ReviewModel} from "../models/entities/ReviewModel";
 import {BaseURL} from "../models/constants/BaseURL";
 import {ReviewsByBookIdURL} from "../models/constants/ReviewsByBookIdURL";
 
-export const fetchReviewsByBookId = async(setReview: (reviews: ReviewModel[]) => void,
-                                          setIsLoadingReview: (isLoadingReview: boolean)=> void,
-                                          bookId?: number) => {
+export const fetchReviewsByBookId = async (setReviews: (reviews: ReviewModel[]) => void,
+                                           setIsLoadingReview: (isLoadingReview: boolean) => void,
+                                           setAverageRating: (averageRating: number) => void,
+                                           bookId?: number) => {
     let apiURL = ``;
     if (bookId) {
         apiURL = `${BaseURL}${ReviewsByBookIdURL}${bookId}`;
@@ -14,6 +15,7 @@ export const fetchReviewsByBookId = async(setReview: (reviews: ReviewModel[]) =>
         }
         const reviewResponsesJson = await reviewResponses.json();
         const responseData = reviewResponsesJson?._embedded?.reviews;
+        let totalRating = 0;
         const loadedReviews: ReviewModel[] = [];
         for (const key in responseData) {
             loadedReviews.push({
@@ -24,9 +26,12 @@ export const fetchReviewsByBookId = async(setReview: (reviews: ReviewModel[]) =>
                 bookId: bookId,
                 reviewDescription: responseData[key].reviewDescription
             })
+            totalRating += responseData[key].rating;
         }
-        setReview(loadedReviews);
+        const avgRating = totalRating / loadedReviews.length;
+        setReviews(loadedReviews);
         setIsLoadingReview(false);
+        setAverageRating(avgRating);
     }
 
 }
