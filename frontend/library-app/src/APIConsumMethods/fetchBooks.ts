@@ -12,10 +12,10 @@ export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
     if (searchUrl) {
         if (searchUrl !== '') {
             let searchWithPage = searchUrl.replace('<pageNumber>', `${page}`)
-            apiURL = `${BaseURL}${searchWithPage}`;
+            apiURL = `${BaseURL}/books${searchWithPage}`;
         }
     } else {
-        apiURL = `${BaseURL}?page=${page}&size=${size}`;
+        apiURL = `${BaseURL}/books?page=${page}&size=${size}`;
     }
     const response = await fetch(apiURL);
 

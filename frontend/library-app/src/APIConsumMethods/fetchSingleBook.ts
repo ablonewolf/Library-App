@@ -6,7 +6,7 @@ export const fetchSingleBook = async (setBook: (book: BookModel) => void,
                                       bookID?: number) => {
     let apiURL = ``;
     if (bookID) {
-        apiURL = `${BaseURL}/${bookID}`;
+        apiURL = `${BaseURL}/books/${bookID}`;
         const response = await fetch(apiURL);
         // console.log(response);
         if (!response.ok) {

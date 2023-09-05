@@ -1,1 +1,1 @@
-export const BaseURL: string = `http://localhost:8080/api/books`;
+export const BaseURL: string = `http://localhost:8080/api`;
