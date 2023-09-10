@@ -16,7 +16,12 @@ export const BookDetailsComponent: React.FC<{ book: BookModel }> = (props) => {
                 {props.book.title}
             </h6>
             <p>{props.book.author}</p>
-            <Link to="#" className="btn main-color text-white">Reserve</Link>
+            <Link
+                to={`checkout/${props.book.id}`}
+                className="btn main-color text-white"
+            >
+                Reserve
+            </Link>
         </div>
     )
 }
