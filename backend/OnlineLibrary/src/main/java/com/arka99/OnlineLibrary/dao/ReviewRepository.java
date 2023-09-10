@@ -1,4 +1,4 @@
-package com.arka99.OnlineLibrary.repositories;
+package com.arka99.OnlineLibrary.dao;
 
 import com.arka99.OnlineLibrary.entity.Review;
 import org.springframework.data.domain.Page;
