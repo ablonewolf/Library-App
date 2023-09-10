@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
+import {useOktaAuth} from "@okta/okta-react";
 
 export const BottomLayout = () => {
+
+    const {authState} = useOktaAuth();
+
     return (
         <div>
             <div className='d-none d-lg-block'>
@@ -21,9 +25,24 @@ export const BottomLayout = () => {
                                 Whether it is to learn a new skill or grow within one, we will be able to
                                 provide top content for you.
                             </p>
-                            <Link to="#" className='btn main-color btn-lg text-white'>
-                                Sign up
-                            </Link>
+                            {
+                                authState?.isAuthenticated ?
+                                    <Link
+                                        type='button'
+                                        className='btn main-color btn-lg text-white'
+                                        to='/search'
+                                    >
+                                        Explore Top Books
+                                    </Link>
+                                    :
+                                    <Link
+                                        to="/login"
+                                        className='btn main-color btn-lg text-white'
+                                    >
+                                        Sign up
+                                    </Link>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -64,9 +83,23 @@ export const BottomLayout = () => {
                                 Whether it is to learn a new skill or grow within one, we will be able to
                                 provide top content for you.
                             </p>
-                            <Link to="#" className='btn main-color btn-lg text-white'>
-                                Sign up
-                            </Link>
+                            {
+                                authState?.isAuthenticated ?
+                                    <Link
+                                        type='button'
+                                        className='btn main-color btn-lg text-white'
+                                        to='/search'
+                                    >
+                                        Explore Top Books
+                                    </Link>
+                                    :
+                                    <Link
+                                        to="/login"
+                                        className='btn main-color btn-lg text-white'
+                                    >
+                                        Sign up
+                                    </Link>
+                            }
                         </div>
                     </div>
                     <div className='m-2'>
