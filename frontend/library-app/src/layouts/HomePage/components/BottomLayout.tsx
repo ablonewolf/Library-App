@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 export const BottomLayout = () => {
     return (
         <div>
@@ -19,9 +21,9 @@ export const BottomLayout = () => {
                                 Whether it is to learn a new skill or grow within one, we will be able to
                                 provide top content for you.
                             </p>
-                            <a href="#" className='btn main-color btn-lg text-white'>
+                            <Link to="#" className='btn main-color btn-lg text-white'>
                                 Sign up
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -62,9 +64,9 @@ export const BottomLayout = () => {
                                 Whether it is to learn a new skill or grow within one, we will be able to
                                 provide top content for you.
                             </p>
-                            <a href="#" className='btn main-color btn-lg text-white'>
+                            <Link to="#" className='btn main-color btn-lg text-white'>
                                 Sign up
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className='m-2'>

@@ -1,6 +1,7 @@
 import React from "react";
 import {BookModel} from "../../../models/entities/BookModel";
 import {ImageRenderComponent} from "./ImageRenderComponent";
+import {Link} from "react-router-dom";
 
 export const BookDetailsComponent: React.FC<{ book: BookModel }> = (props) => {
     return (
@@ -15,7 +16,7 @@ export const BookDetailsComponent: React.FC<{ book: BookModel }> = (props) => {
                 {props.book.title}
             </h6>
             <p>{props.book.author}</p>
-            <a href="#" className="btn main-color text-white">Reserve</a>
+            <Link to="#" className="btn main-color text-white">Reserve</Link>
         </div>
     )
 }
