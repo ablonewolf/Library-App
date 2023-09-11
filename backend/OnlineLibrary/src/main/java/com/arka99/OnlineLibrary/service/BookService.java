@@ -4,6 +4,7 @@ package com.arka99.OnlineLibrary.service;
 import com.arka99.OnlineLibrary.dao.BookRepository;
 import com.arka99.OnlineLibrary.dao.CheckoutRepository;
 import com.arka99.OnlineLibrary.dto.requests.CheckoutBookRequest;
+import com.arka99.OnlineLibrary.dto.requests.CountCurrentCheckoutRequest;
 import com.arka99.OnlineLibrary.entity.Book;
 import com.arka99.OnlineLibrary.entity.Checkout;
 import com.arka99.OnlineLibrary.exceptions.ApplicationException;
@@ -59,5 +60,9 @@ public class BookService {
     public Boolean isBookCheckOutByUser(CheckoutBookRequest checkoutBookRequest) {
         return checkoutRepository.existsCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail(),
             checkoutBookRequest.bookId());
+    }
+
+    public Integer currentCheckoutBooksCount(CountCurrentCheckoutRequest countCurrentCheckoutRequest) {
+        return checkoutRepository.findCheckoutsByUserEmail(countCurrentCheckoutRequest.userEmail()).size();
     }
 }
