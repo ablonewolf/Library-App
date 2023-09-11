@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.ALREADY_CHECKOUT;
@@ -31,11 +30,12 @@ public class BookService {
 
     public Book checkoutBook(CheckoutBookRequest checkoutBookRequest) throws ApplicationException {
         Optional<Book> book = bookRepository.findById(checkoutBookRequest.bookId());
-        Checkout validatedCheckout = checkoutRepository.findCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail()
-            , checkoutBookRequest.bookId());
+        Boolean isBookCheckedOutByUser =
+            checkoutRepository.existsCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail()
+                , checkoutBookRequest.bookId());
         if (book.isEmpty()) {
             throw new ResourceNotFoundException(BOOK_NOT_FOUND);
-        } else if (Objects.nonNull(validatedCheckout)) {
+        } else if (isBookCheckedOutByUser) {
             throw new ResourceAlreadyExistsException(ALREADY_CHECKOUT);
         } else if (book.get().getCopiesAvailable() == 0) {
             throw new ResourceNotAvailableException(BOOK_NOT_AVAILABLE);
