@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public enum ExceptionConstants {
     BOOK_NOT_FOUND("Book does not exist"),
-    ALREADY_CHECKEDOUT("Book is already checkout by the user");
+    ALREADY_CHECKOUT("Book is already checkout by the user"),
+    BOOK_NOT_AVAILABLE("Book is not available at this moment");
     private final String message;
-    }
+}
