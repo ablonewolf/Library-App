@@ -55,4 +55,9 @@ public class BookService {
             return book.get();
         }
     }
+
+    public Boolean isBookCheckOutByUser(CheckoutBookRequest checkoutBookRequest) {
+        return checkoutRepository.existsCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail(),
+            checkoutBookRequest.bookId());
+    }
 }
