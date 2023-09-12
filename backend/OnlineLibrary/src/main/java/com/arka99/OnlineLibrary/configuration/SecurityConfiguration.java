@@ -27,7 +27,7 @@ public class SecurityConfiguration {
             );
 
 //      add cors filter
-        http.cors();
+        http.cors(Customizer.withDefaults());
 //      add content negotiation strategy
         http.setSharedObject(ContentNegotiationStrategy.class, new HeaderContentNegotiationStrategy());
 //      Force a non-empty response body to make unauthorized response body more friendly.
