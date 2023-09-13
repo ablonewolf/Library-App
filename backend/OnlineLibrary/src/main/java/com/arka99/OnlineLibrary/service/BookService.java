@@ -4,7 +4,6 @@ package com.arka99.OnlineLibrary.service;
 import com.arka99.OnlineLibrary.dao.BookRepository;
 import com.arka99.OnlineLibrary.dao.CheckoutRepository;
 import com.arka99.OnlineLibrary.dto.requests.CheckoutBookRequest;
-import com.arka99.OnlineLibrary.dto.requests.CountCurrentCheckoutRequest;
 import com.arka99.OnlineLibrary.entity.Book;
 import com.arka99.OnlineLibrary.entity.Checkout;
 import com.arka99.OnlineLibrary.exceptions.ApplicationException;
@@ -29,10 +28,10 @@ public class BookService {
     private final BookRepository bookRepository;
     private final CheckoutRepository checkoutRepository;
 
-    public Book checkoutBook(CheckoutBookRequest checkoutBookRequest) throws ApplicationException {
+    public Book checkoutBook(String userEmail, CheckoutBookRequest checkoutBookRequest) throws ApplicationException {
         Optional<Book> book = bookRepository.findById(checkoutBookRequest.bookId());
         Boolean isBookCheckedOutByUser =
-            checkoutRepository.existsCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail()
+            checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail
                 , checkoutBookRequest.bookId());
         if (book.isEmpty()) {
             throw new ResourceNotFoundException(BOOK_NOT_FOUND);
@@ -46,7 +45,7 @@ public class BookService {
             book.get().setCopiesAvailable(copiesAvailable);
             bookRepository.save(book.get());
             Checkout checkout = Checkout.builder()
-                .userEmail(checkoutBookRequest.userEmail())
+                .userEmail(userEmail)
                 .checkoutDate(LocalDate.now().toString())
                 .returnDate(LocalDate.now().plusDays(7).toString())
                 .book(book.get())
@@ -57,12 +56,12 @@ public class BookService {
         }
     }
 
-    public Boolean isBookCheckOutByUser(CheckoutBookRequest checkoutBookRequest) {
-        return checkoutRepository.existsCheckoutByUserEmailAndBookId(checkoutBookRequest.userEmail(),
+    public Boolean isBookCheckOutByUser(String userEmail, CheckoutBookRequest checkoutBookRequest) {
+        return checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail,
             checkoutBookRequest.bookId());
     }
 
-    public Integer currentCheckoutBooksCount(CountCurrentCheckoutRequest countCurrentCheckoutRequest) {
-        return checkoutRepository.findCheckoutsByUserEmail(countCurrentCheckoutRequest.userEmail()).size();
+    public Integer currentCheckoutBooksCount(String userEmail) {
+        return checkoutRepository.findCheckoutsByUserEmail(userEmail).size();
     }
 }
