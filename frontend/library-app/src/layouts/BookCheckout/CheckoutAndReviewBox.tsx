@@ -1,14 +1,21 @@
 import {BookModel} from "../../models/entities/BookModel";
 import {Link} from "react-router-dom";
+import {AuthState} from "@okta/okta-auth-js/lib/types/AuthState"
 
-export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean }> = (props) => {
+export const CheckoutAndReviewBox: React.FC<{
+    book: BookModel | undefined,
+    mobile: boolean,
+    currentBooksCheckoutCount: number,
+    authState: AuthState | null
+}> = (props) => {
+    console.log(props.currentBooksCheckoutCount);
     return (
         <div className={props.mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
             <div className='card-body container'>
                 <div className='mt-3'>
                     <p>
                         <b>
-                            0/5
+                            {props.currentBooksCheckoutCount}/5
                         </b> books checked out
 
                     </p>
@@ -36,9 +43,18 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
                         </p>
                     </div>
                 </div>
-                <Link to='#' className='btn btn-success btn-lg'>
-                    Sign in
-                </Link>
+                {props.authState?.isAuthenticated ?
+                    (
+                        <Link to='#' className='btn btn-success btn-lg'>
+                            Check Out
+                        </Link>
+                    ) :
+                    (
+                        <Link to='#' className='btn btn-success btn-lg'>
+                            Sign in
+                        </Link>
+                    )
+                }
                 <hr/>
                 <p className='mt-3'>
                     This number can change until placing order is complete.

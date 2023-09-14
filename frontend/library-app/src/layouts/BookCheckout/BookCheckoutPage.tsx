@@ -9,19 +9,28 @@ import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 import {ReviewModel} from "../../models/entities/ReviewModel";
 import {fetchReviewsByBookId} from "../../APIConsumMethods/fetchReviewsByBookId";
 import {LatestReviews} from "./LatestReviews";
+import {useOktaAuth} from "@okta/okta-react";
+import {fetchUserCurrentCheckoutBookCount} from "../../APIConsumMethods/fetchUserCurrentCheckoutBookCount";
 
 export const BookCheckoutPage = () => {
 
+    const {authState} = useOktaAuth();
+    // books state
     const [book, setBook] = useState<BookModel>();
     const [isLoadingBook, setIsLoadingBook] = useState(true);
     const [httpError, setHttpError] = useState(null);
+    // reviews state
     const [reviews, setReviews] = useState<ReviewModel[]>([]);
     const [isLoadingReviews, setIsLoadingReviews] = useState(true);
     const [averageRating, setAverageRating] = useState(0);
+    // current book checkout state
+    const [currentCheckoutBookCount, setCurrentCheckoutBookCount]
+        = useState(0);
+    const [isLoadingCurrentCheckoutBookCount, setIsLoadingCurrentCheckoutBookCount]
+        = useState(true);
 
     // grab the book ID from the URL
     const bookId = Number((window.location.pathname).split('/')[2]);
-    console.log(bookId);
 
     // fetch a book by its id
     useEffect(() => {
@@ -50,7 +59,20 @@ export const BookCheckoutPage = () => {
             })
     }, [bookId]);
 
-    if (isLoadingBook || isLoadingReviews) {
+    // fetch current checkout books count
+    useEffect(() => {
+        fetchUserCurrentCheckoutBookCount(
+            authState,
+            setCurrentCheckoutBookCount,
+            setIsLoadingCurrentCheckoutBookCount
+        )
+            .catch((error: any) => {
+                setIsLoadingCurrentCheckoutBookCount(false);
+                setHttpError(error.message);
+            })
+    }, [authState]);
+
+    if (isLoadingBook || isLoadingReviews || isLoadingCurrentCheckoutBookCount) {
         return (
             <SpinnerLoading/>
         );
@@ -119,6 +141,8 @@ export const BookCheckoutPage = () => {
                     <CheckoutAndReviewBox
                         book={book}
                         mobile={false}
+                        currentBooksCheckoutCount={currentCheckoutBookCount}
+                        authState={authState}
                     />
                 </div>
                 <hr/>
@@ -175,6 +199,8 @@ export const BookCheckoutPage = () => {
                 <CheckoutAndReviewBox
                     book={book}
                     mobile={true}
+                    currentBooksCheckoutCount={currentCheckoutBookCount}
+                    authState={authState}
                 />
                 <hr/>
                 <LatestReviews
