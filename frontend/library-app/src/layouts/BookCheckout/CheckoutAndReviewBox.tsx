@@ -1,14 +1,34 @@
 import {BookModel} from "../../models/entities/BookModel";
 import {Link} from "react-router-dom";
 import {AuthState} from "@okta/okta-auth-js/lib/types/AuthState"
+import {useEffect, useState} from "react";
 
 export const CheckoutAndReviewBox: React.FC<{
     book: BookModel | undefined,
     mobile: boolean,
     currentBooksCheckoutCount: number,
+    isBookCheckedOut: boolean,
     authState: AuthState | null
 }> = (props) => {
-    console.log(props.currentBooksCheckoutCount);
+    const [buttonString, setButtonString] = useState("Sign in")
+    const [isButtonDisabled, setIsButtonDisabled] = useState("");
+    const changeCheckOutButtonString = () => {
+        if (props.authState?.isAuthenticated) {
+            if (props.isBookCheckedOut) {
+                setButtonString("Book Already Checked out. Enjoy");
+                setIsButtonDisabled("disabled")
+            } else if (props.currentBooksCheckoutCount === 5) {
+                setButtonString("Too many books checked out.");
+                setIsButtonDisabled("disabled")
+            } else {
+                setButtonString("Check out");
+            }
+        }
+    }
+    useEffect(() => {
+        changeCheckOutButtonString();
+    }, [props, buttonString, isButtonDisabled]);
+
     return (
         <div className={props.mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
             <div className='card-body container'>
@@ -43,18 +63,9 @@ export const CheckoutAndReviewBox: React.FC<{
                         </p>
                     </div>
                 </div>
-                {props.authState?.isAuthenticated ?
-                    (
-                        <Link to='#' className='btn btn-success btn-lg'>
-                            Check Out
-                        </Link>
-                    ) :
-                    (
-                        <Link to='#' className='btn btn-success btn-lg'>
-                            Sign in
-                        </Link>
-                    )
-                }
+                <Link to="#" className={`btn btn-success btn-lg ${isButtonDisabled}`}>
+                    {buttonString}
+                </Link>
                 <hr/>
                 <p className='mt-3'>
                     This number can change until placing order is complete.

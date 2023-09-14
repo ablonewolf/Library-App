@@ -11,6 +11,7 @@ import {fetchReviewsByBookId} from "../../APIConsumMethods/fetchReviewsByBookId"
 import {LatestReviews} from "./LatestReviews";
 import {useOktaAuth} from "@okta/okta-react";
 import {fetchUserCurrentCheckoutBookCount} from "../../APIConsumMethods/fetchUserCurrentCheckoutBookCount";
+import {checkIfBookCheckedOut} from "../../APIConsumMethods/checkIfBookCheckedOut";
 
 export const BookCheckoutPage = () => {
 
@@ -28,9 +29,14 @@ export const BookCheckoutPage = () => {
         = useState(0);
     const [isLoadingCurrentCheckoutBookCount, setIsLoadingCurrentCheckoutBookCount]
         = useState(true);
+    // is the book checked out
+    const [isBookCheckedOut, setIsBookCheckedOut] = useState(false);
+    const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] =
+        useState(false);
 
     // grab the book ID from the URL
     const bookId = Number((window.location.pathname).split('/')[2]);
+
 
     // fetch a book by its id
     useEffect(() => {
@@ -72,7 +78,20 @@ export const BookCheckoutPage = () => {
             })
     }, [authState]);
 
-    if (isLoadingBook || isLoadingReviews || isLoadingCurrentCheckoutBookCount) {
+    // check if the current book is checked out by the user
+    useEffect(() => {
+        checkIfBookCheckedOut(
+            authState,
+            setIsBookCheckedOut,
+            setIsLoadingBookCheckedOut,
+            bookId
+        )
+            .catch((error: any) => {
+                setIsLoadingBookCheckedOut(false);
+                setHttpError(error.message);
+            })
+    }, [authState, bookId]);
+    if (isLoadingBook || isLoadingReviews || isLoadingCurrentCheckoutBookCount || isLoadingBookCheckedOut) {
         return (
             <SpinnerLoading/>
         );
@@ -142,6 +161,7 @@ export const BookCheckoutPage = () => {
                         book={book}
                         mobile={false}
                         currentBooksCheckoutCount={currentCheckoutBookCount}
+                        isBookCheckedOut={isBookCheckedOut}
                         authState={authState}
                     />
                 </div>
@@ -200,6 +220,7 @@ export const BookCheckoutPage = () => {
                     book={book}
                     mobile={true}
                     currentBooksCheckoutCount={currentCheckoutBookCount}
+                    isBookCheckedOut={isBookCheckedOut}
                     authState={authState}
                 />
                 <hr/>
