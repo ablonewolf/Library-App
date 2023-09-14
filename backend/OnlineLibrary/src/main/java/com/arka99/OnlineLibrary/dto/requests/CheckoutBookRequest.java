@@ -4,6 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record CheckoutBookRequest(
     @NotNull
-    Long bookId
+    Integer bookId
 ) {
 }

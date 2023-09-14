@@ -29,7 +29,7 @@ public class BookService {
     private final CheckoutRepository checkoutRepository;
 
     public Book checkoutBook(String userEmail, CheckoutBookRequest checkoutBookRequest) throws ApplicationException {
-        Optional<Book> book = bookRepository.findById(checkoutBookRequest.bookId());
+        Optional<Book> book = bookRepository.findById(checkoutBookRequest.bookId().longValue());
         Boolean isBookCheckedOutByUser =
             checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail
                 , checkoutBookRequest.bookId());
@@ -56,9 +56,8 @@ public class BookService {
         }
     }
 
-    public Boolean isBookCheckOutByUser(String userEmail, CheckoutBookRequest checkoutBookRequest) {
-        return checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail,
-            checkoutBookRequest.bookId());
+    public Boolean isBookCheckOutByUser(String userEmail, Integer bookId) {
+        return checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail, bookId);
     }
 
     public Integer currentCheckoutBooksCount(String userEmail) {
