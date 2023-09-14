@@ -5,7 +5,6 @@ import {BookModel} from "../../../models/entities/BookModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import {fetchBooks} from "../../../APIConsumMethods/fetchBooks";
 import {Link} from "react-router-dom";
-import {useOktaAuth} from "@okta/okta-react";
 
 export const Carousel = () => {
 
@@ -13,10 +12,6 @@ export const Carousel = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
-    const {authState} = useOktaAuth();
-    if (authState) {
-        console.log(`access token: ${authState.accessToken?.accessToken}`);
-    }
 
     useEffect(() => {
         fetchBooks(
