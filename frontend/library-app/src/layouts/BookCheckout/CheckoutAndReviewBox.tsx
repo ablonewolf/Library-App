@@ -2,32 +2,36 @@ import {BookModel} from "../../models/entities/BookModel";
 import {Link} from "react-router-dom";
 import {AuthState} from "@okta/okta-auth-js/lib/types/AuthState"
 import {useEffect, useState} from "react";
+import {checkOutBook} from "../../APIConsumMethods/checkOutBook";
 
 export const CheckoutAndReviewBox: React.FC<{
     book: BookModel | undefined,
     mobile: boolean,
     currentBooksCheckoutCount: number,
     isBookCheckedOut: boolean,
+    setIsBookCheckedOut: (isCheckedOut: boolean) => void,
     authState: AuthState | null
 }> = (props) => {
-    const [buttonString, setButtonString] = useState("Sign in")
+    const [buttonString, setButtonString] = useState("Sign In")
     const [isButtonDisabled, setIsButtonDisabled] = useState("");
-    const changeCheckOutButtonString = () => {
-        if (props.authState?.isAuthenticated) {
-            if (props.isBookCheckedOut) {
-                setButtonString("Book Already Checked out. Enjoy");
-                setIsButtonDisabled("disabled")
-            } else if (props.currentBooksCheckoutCount === 5) {
-                setButtonString("Too many books checked out.");
-                setIsButtonDisabled("disabled")
-            } else {
-                setButtonString("Check out");
+
+
+    useEffect(() => {
+        const changeCheckOutButtonString = () => {
+            if (props.authState?.isAuthenticated) {
+                if (props.isBookCheckedOut) {
+                    setButtonString("Book Already Checked out. Enjoy");
+                    setIsButtonDisabled("disabled")
+                } else if (props.currentBooksCheckoutCount === 5) {
+                    setButtonString("Too many books checked out.");
+                    setIsButtonDisabled("disabled")
+                } else {
+                    setButtonString("Check out");
+                }
             }
         }
-    }
-    useEffect(() => {
         changeCheckOutButtonString();
-    }, [props, buttonString, isButtonDisabled]);
+    }, [props.authState, props.isBookCheckedOut, props.currentBooksCheckoutCount, buttonString, isButtonDisabled]);
 
     return (
         <div className={props.mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
@@ -63,7 +67,8 @@ export const CheckoutAndReviewBox: React.FC<{
                         </p>
                     </div>
                 </div>
-                <Link to="#" className={`btn btn-success btn-lg ${isButtonDisabled}`}>
+                <Link to="#" className={`btn btn-success btn-lg ${isButtonDisabled}`}
+                      onClick={() => checkOutBook(props.authState, props.book?.id, props.setIsBookCheckedOut)}>
                     {buttonString}
                 </Link>
                 <hr/>

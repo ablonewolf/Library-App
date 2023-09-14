@@ -49,7 +49,7 @@ export const BookCheckoutPage = () => {
                 setIsLoadingBook(false);
                 setHttpError(error.message);
             })
-    }, [bookId])
+    }, [bookId, isBookCheckedOut])
 
     // fetch reviews of a book by the book Id
     useEffect(() => {
@@ -76,7 +76,7 @@ export const BookCheckoutPage = () => {
                 setIsLoadingCurrentCheckoutBookCount(false);
                 setHttpError(error.message);
             })
-    }, [authState]);
+    }, [authState, isBookCheckedOut]);
 
     // check if the current book is checked out by the user
     useEffect(() => {
@@ -90,7 +90,7 @@ export const BookCheckoutPage = () => {
                 setIsLoadingBookCheckedOut(false);
                 setHttpError(error.message);
             })
-    }, [authState, bookId]);
+    }, [authState, bookId, isBookCheckedOut]);
     if (isLoadingBook || isLoadingReviews || isLoadingCurrentCheckoutBookCount || isLoadingBookCheckedOut) {
         return (
             <SpinnerLoading/>
@@ -162,6 +162,7 @@ export const BookCheckoutPage = () => {
                         mobile={false}
                         currentBooksCheckoutCount={currentCheckoutBookCount}
                         isBookCheckedOut={isBookCheckedOut}
+                        setIsBookCheckedOut={setIsBookCheckedOut}
                         authState={authState}
                     />
                 </div>
@@ -221,6 +222,7 @@ export const BookCheckoutPage = () => {
                     mobile={true}
                     currentBooksCheckoutCount={currentCheckoutBookCount}
                     isBookCheckedOut={isBookCheckedOut}
+                    setIsBookCheckedOut={setIsBookCheckedOut}
                     authState={authState}
                 />
                 <hr/>

@@ -6,7 +6,6 @@ export const checkIfBookCheckedOut = async (authState: AuthState | null,
                                             setIsLoadingBookCheckedOut: (isLoading: boolean) => void,
                                             bookId: number) => {
     if (authState && authState.isAuthenticated) {
-        console.log(authState.accessToken?.accessToken)
         const apiURL = `${BaseURL}/books/secure/isCheckoutByUser?bookId=${bookId}`;
         const requestOptions = {
             method: 'GET',
