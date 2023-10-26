@@ -19,12 +19,12 @@ public class SecurityConfiguration {
 //      disable cross request site forgery
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(configurer ->
-                configurer
-                    .requestMatchers("/api/books/secure/**").authenticated()
-                    .requestMatchers("/api/books/**", "/api/reviews/**").permitAll())
-            .oauth2ResourceServer((oauth2) -> oauth2
-                .jwt(Customizer.withDefaults())
-            );
+                        configurer
+                                .requestMatchers("/api/books/secure/**").authenticated()
+                                .requestMatchers("/api/books/**", "/api/reviews/**").permitAll())
+                .oauth2ResourceServer((oauth2) -> oauth2
+                        .jwt(Customizer.withDefaults())
+                );
 
 //      add cors filter
         http.cors(Customizer.withDefaults());
