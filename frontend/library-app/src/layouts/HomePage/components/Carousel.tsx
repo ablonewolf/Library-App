@@ -34,10 +34,12 @@ export const Carousel = () => {
 
     if (httpError) {
         return (
-            <div className='container m-5'>
-                <p>
-                    {httpError}
-                </p>
+            <div className='container mt-5'>
+                <div className='homepage-carousel-title mx-3'>
+                    <h3>
+                        {httpError}
+                    </h3>
+                </div>
             </div>
         )
     }
