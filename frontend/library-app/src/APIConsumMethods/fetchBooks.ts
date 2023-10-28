@@ -23,12 +23,12 @@ export const fetchBooks = async (setBooks: (books: BookModel[]) => void,
         throw new Error(`Something went wrong`);
     }
     const responseJson = await response.json();
-    const responseData = responseJson._embedded.books;
+    const responseData = responseJson.content || responseJson._embedded?.books;
     if (setTotalAmountOfBooks) {
-        setTotalAmountOfBooks(responseJson.page.totalElements ?? 0);
+        setTotalAmountOfBooks((responseJson.totalElements || responseJson.page.totalElements) ?? 0)
     }
     if (setTotalPages) {
-        setTotalPages(responseJson.page.totalPages ?? 0);
+            setTotalPages((responseJson.totalPages || responseJson.page.totalElements) ?? 0);
     }
     const loadedBooks: BookModel[] = [];
 

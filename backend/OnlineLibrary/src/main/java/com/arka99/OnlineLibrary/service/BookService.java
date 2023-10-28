@@ -1,66 +1,23 @@
 package com.arka99.OnlineLibrary.service;
 
-
-import com.arka99.OnlineLibrary.dao.BookRepository;
-import com.arka99.OnlineLibrary.dao.CheckoutRepository;
 import com.arka99.OnlineLibrary.dto.requests.CheckoutBookRequest;
 import com.arka99.OnlineLibrary.entity.Book;
-import com.arka99.OnlineLibrary.entity.Checkout;
-import com.arka99.OnlineLibrary.exceptions.ApplicationException;
-import com.arka99.OnlineLibrary.exceptions.ResourceAlreadyExistsException;
-import com.arka99.OnlineLibrary.exceptions.ResourceNotAvailableException;
-import com.arka99.OnlineLibrary.exceptions.ResourceNotFoundException;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
-import java.util.Optional;
+public interface BookService {
+    Book checkoutBook(String userEmail, CheckoutBookRequest checkoutBookRequest);
 
-import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.ALREADY_CHECKOUT;
-import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.BOOK_NOT_AVAILABLE;
-import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.BOOK_NOT_FOUND;
+    Boolean isBookCheckOutByUser(String userEmail, Long bookId);
 
-@Service
-@Transactional
-@AllArgsConstructor
-public class BookService {
-    private final BookRepository bookRepository;
-    private final CheckoutRepository checkoutRepository;
+    Integer currentCheckoutBooksCount(String userEmail);
 
-    public Book checkoutBook(String userEmail, CheckoutBookRequest checkoutBookRequest) throws ApplicationException {
-        Optional<Book> book = bookRepository.findById(checkoutBookRequest.bookId().longValue());
-        Boolean isBookCheckedOutByUser =
-            checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail
-                , checkoutBookRequest.bookId());
-        if (book.isEmpty()) {
-            throw new ResourceNotFoundException(BOOK_NOT_FOUND);
-        } else if (isBookCheckedOutByUser) {
-            throw new ResourceAlreadyExistsException(ALREADY_CHECKOUT);
-        } else if (book.get().getCopiesAvailable() == 0) {
-            throw new ResourceNotAvailableException(BOOK_NOT_AVAILABLE);
-        } else {
-            Integer copiesAvailable = book.get().getCopiesAvailable();
-            copiesAvailable -= 1;
-            book.get().setCopiesAvailable(copiesAvailable);
-            bookRepository.save(book.get());
-            Checkout checkout = Checkout.builder()
-                .userEmail(userEmail)
-                .checkoutDate(LocalDate.now().toString())
-                .returnDate(LocalDate.now().plusDays(7).toString())
-                .book(book.get())
-                .build();
+    Page<Book> findBookByTitleContaining(String title, Pageable pageable);
 
-            checkoutRepository.save(checkout);
-            return book.get();
-        }
-    }
+    Page<Book> findBookByCategory(String category, Pageable pageable);
 
-    public Boolean isBookCheckOutByUser(String userEmail, Integer bookId) {
-        return checkoutRepository.existsCheckoutByUserEmailAndBookId(userEmail, bookId);
-    }
+    Page<Book> findAllBooks(Pageable pageable);
 
-    public Integer currentCheckoutBooksCount(String userEmail) {
-        return checkoutRepository.findCheckoutsByUserEmail(userEmail).size();
-    }
+    Book findBookByID(Long bookId);
+
 }

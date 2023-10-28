@@ -14,7 +14,7 @@ export const fetchReviewsByBookId = async (setReviews: (reviews: ReviewModel[]) 
             throw new Error(`Something went wrong`);
         }
         const reviewResponsesJson = await reviewResponses.json();
-        const responseData = reviewResponsesJson?._embedded?.reviews;
+        const responseData = reviewResponsesJson?.content;
         let totalRating = 0;
         const loadedReviews: ReviewModel[] = [];
         for (const key in responseData) {

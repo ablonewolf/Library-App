@@ -1,8 +1,7 @@
 package com.arka99.OnlineLibrary.entity;
 
 import com.arka99.OnlineLibrary.common.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
