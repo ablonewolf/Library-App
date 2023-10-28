@@ -35,7 +35,9 @@ export const BookCheckoutPage = () => {
         useState(false);
 
     // grab the book ID from the URL
-    const bookId = Number((window.location.pathname).split('/')[2]);
+    const bookId = Number((
+                              window.location.pathname
+                          ).split('/')[2]);
 
 
     // fetch a book by its id
@@ -116,22 +118,22 @@ export const BookCheckoutPage = () => {
                     <div className="col-md-2 col-sm-2">
                         {
                             book?.img ?
-                                (
-                                    <img
-                                        src={book?.img}
-                                        width='226'
-                                        height='349'
-                                        alt='book'
-                                    />
-                                ) :
-                                (
-                                    <img
-                                        src={genericBookImg}
-                                        width='226'
-                                        height='349'
-                                        alt='book'
-                                    />
-                                )
+                            (
+                                <img
+                                    src={book?.img}
+                                    width='226'
+                                    height='349'
+                                    alt='book'
+                                />
+                            ) :
+                            (
+                                <img
+                                    src={genericBookImg}
+                                    width='226'
+                                    height='349'
+                                    alt='book'
+                                />
+                            )
                         }
                     </div>
                     <div className='col-4 col-md-4 container'>
@@ -143,7 +145,8 @@ export const BookCheckoutPage = () => {
                                 {book?.author}
                             </h5>
                             <h5 className='text-black'>
-                                {`Book for ${CategoryMappings[book?.category?.toLowerCase() ?? 'Does not have a labelled category.']}`}
+                                {`Book for ${CategoryMappings[book?.category?.toLowerCase() ??
+                                                              'Does not have a labelled category.']}`}
                             </h5>
                             <p className='lead'>
                                 {book?.description}
@@ -179,22 +182,22 @@ export const BookCheckoutPage = () => {
                 <div className='d-flex justify-content-center align-items-center'>
                     {
                         book?.img ?
-                            (
-                                <img
-                                    src={book?.img}
-                                    width='226'
-                                    height='349'
-                                    alt='book'
-                                />
-                            ) :
-                            (
-                                <img
-                                    src={genericBookImg}
-                                    width='226'
-                                    height='349'
-                                    alt='book'
-                                />
-                            )
+                        (
+                            <img
+                                src={book?.img}
+                                width='226'
+                                height='349'
+                                alt='book'
+                            />
+                        ) :
+                        (
+                            <img
+                                src={genericBookImg}
+                                width='226'
+                                height='349'
+                                alt='book'
+                            />
+                        )
                     }
                 </div>
                 <div className='mt-4'>

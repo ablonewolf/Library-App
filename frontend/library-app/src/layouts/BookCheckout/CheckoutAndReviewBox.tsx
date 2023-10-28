@@ -46,13 +46,13 @@ export const CheckoutAndReviewBox: React.FC<{
                     <hr/>
                     {
                         props.book && props.book.copiesAvailable && props.book.copiesAvailable > 0 ?
-                            <h4 className='text-success'>
-                                Available
-                            </h4>
-                            :
-                            <h4 className='text-danger'>
-                                Wait List
-                            </h4>
+                        <h4 className='text-success'>
+                            Available
+                        </h4>
+                                                                                                   :
+                        <h4 className='text-danger'>
+                            Wait List
+                        </h4>
                     }
                     <div className='row'>
                         <p className='col-6 lead'>

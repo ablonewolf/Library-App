@@ -1,9 +1,10 @@
 import {BookModel} from "../models/entities/BookModel";
 import {BaseURL} from "../models/constants/BaseURL";
 
-export const fetchSingleBook = async (setBook: (book: BookModel) => void,
-                                      setIsLoading: (isLoading: boolean) => void,
-                                      bookID?: number) => {
+export const fetchSingleBook = async (
+    setBook: (book: BookModel) => void,
+    setIsLoading: (isLoading: boolean) => void,
+    bookID?: number) => {
     let apiURL = ``;
     if (bookID) {
         apiURL = `${BaseURL}/books/${bookID}`;

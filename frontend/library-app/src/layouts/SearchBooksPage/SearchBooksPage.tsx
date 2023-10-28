@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {BookModel} from "../../models/entities/BookModel";
 import {fetchBooks} from "../../APIConsumMethods/fetchBooks";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
@@ -54,7 +54,7 @@ export const SearchBooksPage = () => {
     const indexOfLastBook: number = currentPage * booksPerPage;
     const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
     let lastItem = booksPerPage * currentPage <= totalAmountOfBooks ?
-        booksPerPage * currentPage : totalAmountOfBooks;
+                   booksPerPage * currentPage : totalAmountOfBooks;
 
     const handleChangeInSearchBox = () => {
         setCurrentPage(1);
@@ -207,43 +207,43 @@ export const SearchBooksPage = () => {
                         </div>
                     </div>
                     {totalAmountOfBooks > 0 ?
-                        <>
-                            <div className="mt-3">
-                                <h5>
-                                    Number of results: {totalAmountOfBooks}
-                                </h5>
-                            </div>
-                            <p>
-                                {indexOfFirstBook + 1} to {lastItem} out of {totalAmountOfBooks} items:
-                            </p>
-                            {books.map((book, index) => (
-                                <SearchBook
-                                    book={book}
-                                    key={index}
-                                />
-                            ))}
-                        </>
-                        :
-                        <div className='m-5'>
-                            <h3>
-                                Can't find what you are looking for
-                            </h3>
-                            <Link
-                                to="/search"
-                                type='button'
-                                className='btn main-color btn-md px-4 me-md-2 fw-bold text-white'
-                            >
-                                Library Services
-                            </Link>
-                        </div>
+                     <>
+                         <div className="mt-3">
+                             <h5>
+                                 Number of results: {totalAmountOfBooks}
+                             </h5>
+                         </div>
+                         <p>
+                             {indexOfFirstBook + 1} to {lastItem} out of {totalAmountOfBooks} items:
+                         </p>
+                         {books.map((book, index) => (
+                             <SearchBook
+                                 book={book}
+                                 key={index}
+                             />
+                         ))}
+                     </>
+                                            :
+                     <div className='m-5'>
+                         <h3>
+                             Can't find what you are looking for
+                         </h3>
+                         <Link
+                             to="/search"
+                             type='button'
+                             className='btn main-color btn-md px-4 me-md-2 fw-bold text-white'
+                         >
+                             Library Services
+                         </Link>
+                     </div>
                     }
 
                     {totalPages > 1 &&
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPage={totalPages}
-                            paginate={paginate}
-                        />
+                     <Pagination
+                         currentPage={currentPage}
+                         totalPage={totalPages}
+                         paginate={paginate}
+                     />
                     }
                 </div>
             </div>

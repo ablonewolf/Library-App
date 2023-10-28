@@ -27,20 +27,20 @@ export const BottomLayout = () => {
                             </p>
                             {
                                 authState?.isAuthenticated ?
-                                    <Link
-                                        type='button'
-                                        className='btn main-color btn-lg text-white'
-                                        to='/search'
-                                    >
-                                        Explore Top Books
-                                    </Link>
-                                    :
-                                    <Link
-                                        to="/login"
-                                        className='btn main-color btn-lg text-white'
-                                    >
-                                        Sign up
-                                    </Link>
+                                <Link
+                                    type='button'
+                                    className='btn main-color btn-lg text-white'
+                                    to='/search'
+                                >
+                                    Explore Top Books
+                                </Link>
+                                                           :
+                                <Link
+                                    to="/login"
+                                    className='btn main-color btn-lg text-white'
+                                >
+                                    Sign up
+                                </Link>
                             }
 
                         </div>
@@ -85,20 +85,20 @@ export const BottomLayout = () => {
                             </p>
                             {
                                 authState?.isAuthenticated ?
-                                    <Link
-                                        type='button'
-                                        className='btn main-color btn-lg text-white'
-                                        to='/search'
-                                    >
-                                        Explore Top Books
-                                    </Link>
-                                    :
-                                    <Link
-                                        to="/login"
-                                        className='btn main-color btn-lg text-white'
-                                    >
-                                        Sign up
-                                    </Link>
+                                <Link
+                                    type='button'
+                                    className='btn main-color btn-lg text-white'
+                                    to='/search'
+                                >
+                                    Explore Top Books
+                                </Link>
+                                                           :
+                                <Link
+                                    to="/login"
+                                    className='btn main-color btn-lg text-white'
+                                >
+                                    Sign up
+                                </Link>
                             }
                         </div>
                     </div>

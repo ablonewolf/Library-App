@@ -26,9 +26,9 @@ export const StarsReview: React.FC<{ rating: number, size: number }> = (props) =
             }
             {
                 halfStars > 0 ?
-                    <HalfStar size={props.size}/>
-                    :
-                    <></>
+                <HalfStar size={props.size}/>
+                              :
+                <></>
             }
             {
                 Array.from({length: emptyStars}, (_, i) =>
