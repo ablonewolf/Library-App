@@ -75,9 +75,17 @@ export const CheckoutAndReviewBox: React.FC<{
                 <p className='mt-3'>
                     This number can change until placing order is complete.
                 </p>
-                <p>
-                    Sign in to leave a review.
-                </p>
+                {
+                    props.authState?.isAuthenticated ?
+                        <></>
+                        :
+                        (
+                            <p>
+                                Sign in to leave a review.
+                            </p>
+                        )
+                }
+
             </div>
         </div>
     )

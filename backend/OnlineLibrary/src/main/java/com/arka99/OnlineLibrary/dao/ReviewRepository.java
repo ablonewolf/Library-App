@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-
     @EntityGraph(attributePaths = {"book"})
     Page<Review> findAllByBook_Id(Long bookId, Pageable pageable);
 
-    Review findReviewByUserEmailAndBookId(String userEmail, Long bookId);
+    @EntityGraph(attributePaths = {"book"})
+    Boolean existsByBookIdAndUserEmail(Long bookId, String userEmail);
 }

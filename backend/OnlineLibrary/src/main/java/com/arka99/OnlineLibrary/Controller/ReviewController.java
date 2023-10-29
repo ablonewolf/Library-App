@@ -1,7 +1,9 @@
 package com.arka99.OnlineLibrary.Controller;
 
+import com.arka99.OnlineLibrary.dto.requests.ReviewRequest;
 import com.arka99.OnlineLibrary.entity.Review;
 import com.arka99.OnlineLibrary.service.ReviewService;
+import com.arka99.OnlineLibrary.utils.ExtractJWT;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,4 +30,11 @@ class ReviewController {
         return reviewService.findReviewByBook(bookId, PageRequest.of(page - 1,
                                                                      size));
     }
+    @PostMapping(CREATE_REVIEW)
+    public void postReview(@RequestHeader(value = "Authorization") String token,
+                           @RequestBody ReviewRequest reviewRequest){
+        String userEmail = ExtractJWT.extractValueFromPayload(token , "sub");
+        reviewService.postReview(userEmail, reviewRequest);
+    }
+
 }

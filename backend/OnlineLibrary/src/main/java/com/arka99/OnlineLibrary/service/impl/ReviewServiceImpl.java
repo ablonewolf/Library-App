@@ -1,14 +1,20 @@
 package com.arka99.OnlineLibrary.service.impl;
 
 import com.arka99.OnlineLibrary.dao.ReviewRepository;
+import com.arka99.OnlineLibrary.dto.requests.ReviewRequest;
 import com.arka99.OnlineLibrary.entity.Review;
+import com.arka99.OnlineLibrary.exceptions.ResourceAlreadyExistsException;
 import com.arka99.OnlineLibrary.service.BookService;
 import com.arka99.OnlineLibrary.service.ReviewService;
+import java.sql.Date;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.REVIEW_ALREADY_EXISTS;
 
 @Service
 @Transactional
@@ -20,5 +26,21 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Page<Review> findReviewByBook(Long bookId, Pageable pageable) {
         return reviewRepository.findAllByBook_Id(bookId, pageable);
+    }
+
+    @Override
+    public void postReview(String userEmail, ReviewRequest reviewRequest) {
+        if (reviewRepository.existsByBookIdAndUserEmail(reviewRequest.bookId(), userEmail)) {
+            throw new ResourceAlreadyExistsException(REVIEW_ALREADY_EXISTS);
+        } else {
+            Review review = Review.builder()
+                                  .book(bookService.findBookByID(reviewRequest.bookId()))
+                                  .rating(reviewRequest.rating())
+                                  .userEmail(userEmail)
+                                  .reviewDescription(reviewRequest.reviewDescription())
+                                  .date(Date.valueOf(LocalDate.now()))
+                                  .build();
+            reviewRepository.save(review);
+        }
     }
 }
