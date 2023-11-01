@@ -54,7 +54,7 @@ public class ReviewController {
     public Boolean userReviewExists(
             @RequestHeader(value = "Authorization")
             String token,
-            @RequestBody
+            @RequestParam
             Long bookId) {
         if (Objects.isNull(token)) {
             throw new CustomAuthenticationResponse(AUTHENTICATION_TOKEN_MISSING);
