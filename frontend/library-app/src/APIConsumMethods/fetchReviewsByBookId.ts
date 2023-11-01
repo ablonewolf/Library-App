@@ -12,7 +12,7 @@ export const fetchReviewsByBookId = async (
         apiURL = `${BaseURL}${ReviewsByBookIdURL}${bookId}`;
         const reviewResponses = await fetch(apiURL);
         if (!reviewResponses.ok) {
-            throw new Error(`Something went wrong`);
+            throw new Error(`Something went wrong fetching reviews of this book.`);
         }
         const reviewResponsesJson = await reviewResponses.json();
         const responseData = reviewResponsesJson?.content;

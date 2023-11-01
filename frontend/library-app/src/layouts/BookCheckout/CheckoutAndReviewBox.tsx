@@ -10,7 +10,8 @@ export const CheckoutAndReviewBox: React.FC<{
     currentBooksCheckoutCount: number,
     isBookCheckedOut: boolean,
     setIsBookCheckedOut: (isCheckedOut: boolean) => void,
-    authState: AuthState | null
+    authState: AuthState | null,
+    isReviewLeft: boolean
 }> = (props) => {
     const [buttonString, setButtonString] = useState("Sign In")
     const [isButtonDisabled, setIsButtonDisabled] = useState("");

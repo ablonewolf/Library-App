@@ -10,7 +10,7 @@ export const fetchSingleBook = async (
         apiURL = `${BaseURL}/books/${bookID}`;
         const response = await fetch(apiURL);
         if (!response.ok) {
-            throw new Error(`Something went wrong`);
+            throw new Error(`Something went wrong fetching info of this book.`);
         }
         const responseJson = await response.json();
         const loadedBook: BookModel = {

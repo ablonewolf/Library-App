@@ -17,7 +17,7 @@ export const checkIfBookCheckedOut = async (
         };
         const checkIfBookCheckedOutResponse = await fetch(apiURL, requestOptions);
         if (!checkIfBookCheckedOutResponse.ok) {
-            throw new Error("Something went wrong fetching response.");
+            throw new Error("Something went wrong checking if book checked out.");
         }
         const checkIfBookCheckedOutJson = await checkIfBookCheckedOutResponse.json();
         setIsBookCheckedOut(checkIfBookCheckedOutJson);

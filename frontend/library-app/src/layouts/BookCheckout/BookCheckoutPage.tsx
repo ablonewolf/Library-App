@@ -12,6 +12,7 @@ import {LatestReviews} from "./LatestReviews";
 import {useOktaAuth} from "@okta/okta-react";
 import {fetchUserCurrentCheckoutBookCount} from "../../APIConsumMethods/fetchUserCurrentCheckoutBookCount";
 import {checkIfBookCheckedOut} from "../../APIConsumMethods/checkIfBookCheckedOut";
+import {fetchUserReviewOfBook} from "../../APIConsumMethods/fetchUserReviewOfBook";
 
 export const BookCheckoutPage = () => {
 
@@ -24,6 +25,8 @@ export const BookCheckoutPage = () => {
     const [reviews, setReviews] = useState<ReviewModel[]>([]);
     const [isLoadingReviews, setIsLoadingReviews] = useState(true);
     const [averageRating, setAverageRating] = useState(0);
+    const [isReviewLeft, setIsReviewLeft] = useState(false);
+    const [isLoadingUserReview, setIsLoadingUserReview] = useState(true);
     // current book checkout state
     const [currentCheckoutBookCount, setCurrentCheckoutBookCount]
         = useState(0);
@@ -35,9 +38,9 @@ export const BookCheckoutPage = () => {
         useState(false);
 
     // grab the book ID from the URL
-    const bookId = Number((
-                              window.location.pathname
-                          ).split('/')[2]);
+    const bookId = Number(
+        (
+            window.location.pathname).split('/')[2]);
 
 
     // fetch a book by its id
@@ -46,11 +49,10 @@ export const BookCheckoutPage = () => {
             setBook,
             setIsLoadingBook,
             bookId
-        )
-            .catch((error: any) => {
-                setIsLoadingBook(false);
-                setHttpError(error.message);
-            })
+        ).catch((error: any) => {
+            setIsLoadingBook(false);
+            setHttpError(error.message);
+        })
     }, [bookId, isBookCheckedOut])
 
     // fetch reviews of a book by the book Id
@@ -60,11 +62,10 @@ export const BookCheckoutPage = () => {
             setIsLoadingReviews,
             setAverageRating,
             bookId
-        )
-            .catch((error: any) => {
-                setIsLoadingReviews(false);
-                setHttpError(error.message);
-            })
+        ).catch((error: any) => {
+            setIsLoadingReviews(false);
+            setHttpError(error.message);
+        })
     }, [bookId]);
 
     // fetch current checkout books count
@@ -73,11 +74,10 @@ export const BookCheckoutPage = () => {
             authState,
             setCurrentCheckoutBookCount,
             setIsLoadingCurrentCheckoutBookCount
-        )
-            .catch((error: any) => {
-                setIsLoadingCurrentCheckoutBookCount(false);
-                setHttpError(error.message);
-            })
+        ).catch((error: any) => {
+            setIsLoadingCurrentCheckoutBookCount(false);
+            setHttpError(error.message);
+        })
     }, [authState, isBookCheckedOut]);
 
     // check if the current book is checked out by the user
@@ -87,24 +87,44 @@ export const BookCheckoutPage = () => {
             setIsBookCheckedOut,
             setIsLoadingBookCheckedOut,
             bookId
-        )
-            .catch((error: any) => {
-                setIsLoadingBookCheckedOut(false);
-                setHttpError(error.message);
-            })
+        ).catch((error: any) => {
+            setIsLoadingBookCheckedOut(false);
+            setHttpError(error.message);
+        })
     }, [authState, bookId, isBookCheckedOut]);
-    if (isLoadingBook || isLoadingReviews || isLoadingCurrentCheckoutBookCount || isLoadingBookCheckedOut) {
+
+    useEffect(() => {
+        fetchUserReviewOfBook(
+            authState,
+            bookId,
+            setIsReviewLeft,
+            setIsLoadingUserReview
+        ).catch((error: any) => {
+            setIsLoadingUserReview(false)
+            setHttpError(error.message)
+        })
+
+    }, []);
+    if (isLoadingBook ||
+        isLoadingReviews ||
+        isLoadingCurrentCheckoutBookCount ||
+        isLoadingBookCheckedOut ||
+        isLoadingUserReview) {
         return (
             <SpinnerLoading/>
         );
     }
 
+    console.log(isReviewLeft)
+
     if (httpError) {
         return (
-            <div className='container m-5'>
-                <p>
-                    {httpError}
-                </p>
+            <div className='container mt-5 mb-5'>
+                <div className='homepage-carousel-title mx-3'>
+                    <h3>
+                        {httpError}
+                    </h3>
+                </div>
             </div>
         )
     }
