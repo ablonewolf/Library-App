@@ -18,8 +18,7 @@ import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.AUTHE
 @RestController
 @RequestMapping(BOOK_ENDPOINT)
 @RequiredArgsConstructor
-public
-class BookController {
+public class BookController {
     private final BookService bookService;
 
     @GetMapping

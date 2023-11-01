@@ -5,8 +5,7 @@ import com.arka99.OnlineLibrary.entity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public
-interface BookService {
+public interface BookService {
     Book checkoutBook(String userEmail, CheckoutBookRequest checkoutBookRequest);
 
     Boolean isBookCheckOutByUser(String userEmail, Long bookId);
