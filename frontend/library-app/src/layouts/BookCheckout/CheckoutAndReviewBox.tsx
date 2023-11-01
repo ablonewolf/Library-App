@@ -15,24 +15,44 @@ export const CheckoutAndReviewBox: React.FC<{
 }> = (props) => {
     const [buttonString, setButtonString] = useState("Sign In")
     const [isButtonDisabled, setIsButtonDisabled] = useState("");
+    const defaultReviewText = "Sign in to Leave a Review.";
+    const [reviewText, setReviewText] = useState("")
 
-
-    useEffect(() => {
-        const changeCheckOutButtonString = () => {
-            if (props.authState?.isAuthenticated) {
-                if (props.isBookCheckedOut) {
-                    setButtonString("Book Already Checked out. Enjoy");
-                    setIsButtonDisabled("disabled")
-                } else if (props.currentBooksCheckoutCount === 5) {
-                    setButtonString("Too many books checked out.");
-                    setIsButtonDisabled("disabled")
-                } else {
-                    setButtonString("Check out");
-                }
+    const changeCheckOutButtonString = () => {
+        if (props.authState?.isAuthenticated) {
+            if (props.isBookCheckedOut) {
+                setButtonString("Book Already Checked out. Enjoy");
+                setIsButtonDisabled("disabled")
+            } else if (props.currentBooksCheckoutCount === 5) {
+                setButtonString("Too many books checked out.");
+                setIsButtonDisabled("disabled")
+            } else {
+                setButtonString("Check out");
             }
         }
+    }
+
+    const changeReviewText = () => {
+        if (props.authState?.isAuthenticated) {
+            if (props.isReviewLeft) {
+                setReviewText("Thanks for your review")
+            } else {
+                setReviewText("Please Leave a Review")
+            }
+        } else {
+            setReviewText(defaultReviewText);
+        }
+    }
+
+    useEffect(() => {
         changeCheckOutButtonString();
-    }, [props.authState, props.isBookCheckedOut, props.currentBooksCheckoutCount, buttonString, isButtonDisabled]);
+        changeReviewText();
+    }, [props.authState,
+        props.isBookCheckedOut,
+        props.currentBooksCheckoutCount,
+        buttonString,
+        isButtonDisabled,
+        props.isReviewLeft]);
 
     return (
         <div className={props.mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
@@ -76,16 +96,10 @@ export const CheckoutAndReviewBox: React.FC<{
                 <p className='mt-3'>
                     This number can change until placing order is complete.
                 </p>
-                {
-                    props.authState?.isAuthenticated ?
-                        <></>
-                        :
-                        (
-                            <p>
-                                Sign in to leave a review.
-                            </p>
-                        )
-                }
+                <p>
+                    {reviewText}
+                </p>
+
 
             </div>
         </div>

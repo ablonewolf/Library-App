@@ -104,7 +104,7 @@ export const BookCheckoutPage = () => {
             setHttpError(error.message)
         })
 
-    }, []);
+    }, [authState, bookId]);
     if (isLoadingBook ||
         isLoadingReviews ||
         isLoadingCurrentCheckoutBookCount ||
@@ -115,7 +115,6 @@ export const BookCheckoutPage = () => {
         );
     }
 
-    console.log(isReviewLeft)
 
     if (httpError) {
         return (

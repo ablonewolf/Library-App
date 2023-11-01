@@ -1,5 +1,6 @@
 import {AuthState} from "@okta/okta-auth-js/lib/types/AuthState";
 import {BaseURL} from "../models/constants/BaseURL";
+import {userReviewOfBook} from "../models/constants/UserReviewOfBook";
 
 export const fetchUserReviewOfBook = async (
     authState: AuthState | null,
@@ -7,8 +8,8 @@ export const fetchUserReviewOfBook = async (
     setIsReviewLeft: (isReviewLeft: boolean) => void,
     setIsLoadingUserReview: (isLoadingUserReview: boolean) => void
 ) => {
-    if (authState?.isAuthenticated) {
-        const url = `${BaseURL}/reviews/secure/existReview?bookId=${bookId}`;
+    if (authState?.isAuthenticated && bookId) {
+        const url = `${BaseURL}${userReviewOfBook}${bookId}`;
         const requestOptions = {
             method: 'GET',
             headers: {
