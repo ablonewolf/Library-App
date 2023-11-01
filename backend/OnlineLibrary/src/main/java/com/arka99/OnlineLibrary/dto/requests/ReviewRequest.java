@@ -7,6 +7,6 @@ public record ReviewRequest(
         double rating,
         @NotNull
         Long bookId,
-        String reviewDescription
+        String description
 ) {
 }

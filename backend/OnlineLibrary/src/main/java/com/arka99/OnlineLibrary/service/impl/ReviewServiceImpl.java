@@ -30,17 +30,22 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void postReview(String userEmail, ReviewRequest reviewRequest) {
-        if (reviewRepository.existsByBookIdAndUserEmail(reviewRequest.bookId(), userEmail)) {
+        if (userReviewListed(userEmail, reviewRequest.bookId())) {
             throw new ResourceAlreadyExistsException(REVIEW_ALREADY_EXISTS);
         } else {
             Review review = Review.builder()
                                   .book(bookService.findBookByID(reviewRequest.bookId()))
                                   .rating(reviewRequest.rating())
                                   .userEmail(userEmail)
-                                  .reviewDescription(reviewRequest.reviewDescription())
+                                  .reviewDescription(reviewRequest.description())
                                   .date(Date.valueOf(LocalDate.now()))
                                   .build();
             reviewRepository.save(review);
         }
+    }
+
+    @Override
+    public boolean userReviewListed(String userEmail, Long bookId) {
+        return reviewRepository.existsByBookIdAndUserEmail(bookId, userEmail);
     }
 }

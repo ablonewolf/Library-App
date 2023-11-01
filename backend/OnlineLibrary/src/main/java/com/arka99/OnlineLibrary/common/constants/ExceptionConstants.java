@@ -10,6 +10,7 @@ public enum ExceptionConstants {
     ALREADY_CHECKOUT("Book is already checkout by the user"),
     BOOK_NOT_AVAILABLE("Book is not available at this moment"),
     REVIEW_ALREADY_EXISTS("There is already a review on this book by this user"),
-    AUTHENTICATION_TOKEN_MISSING("Authentication header missing");
+    AUTHENTICATION_TOKEN_MISSING("Authentication header missing"),
+    USER_EMAIL_MISSING("No such user email found");
     private final String message;
 }

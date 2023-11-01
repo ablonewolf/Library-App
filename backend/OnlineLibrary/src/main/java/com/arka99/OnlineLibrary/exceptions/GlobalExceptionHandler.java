@@ -3,6 +3,7 @@ package com.arka99.OnlineLibrary.exceptions;
 import com.arka99.OnlineLibrary.dto.responses.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,8 +35,14 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public ExceptionResponse handleNoAuthenticationHeaderResponse(MissingRequestHeaderException e) {
+        return new ExceptionResponse("AUTHENTICATION_HEADER_MISSING", e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(CustomAuthenticationResponse.class)
-    public ExceptionResponse handleNoAuthenticationHeaderResponse(CustomAuthenticationResponse e) {
+    public ExceptionResponse handleNoUserEmailException(CustomAuthenticationResponse e) {
         return new ExceptionResponse(e.getCode(), e.getMessage());
     }
 
