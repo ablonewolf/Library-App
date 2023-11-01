@@ -187,6 +187,7 @@ export const BookCheckoutPage = () => {
                         isBookCheckedOut={isBookCheckedOut}
                         setIsBookCheckedOut={setIsBookCheckedOut}
                         authState={authState}
+                        isReviewLeft={isReviewLeft}
                     />
                 </div>
                 <hr/>
@@ -247,6 +248,7 @@ export const BookCheckoutPage = () => {
                     isBookCheckedOut={isBookCheckedOut}
                     setIsBookCheckedOut={setIsBookCheckedOut}
                     authState={authState}
+                    isReviewLeft={isReviewLeft}
                 />
                 <hr/>
                 <LatestReviews
