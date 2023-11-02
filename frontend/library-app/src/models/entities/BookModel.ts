@@ -1,10 +1,10 @@
 export type BookModel = {
-    id: number,
-    title: string,
-    author?: string,
-    description?: string,
-    copies?: number,
-    copiesAvailable?: number,
-    category?: string,
-    img?: string
-}
+  id: number;
+  title: string;
+  author?: string;
+  description?: string;
+  copies?: number;
+  copiesAvailable?: number;
+  category?: string;
+  img?: string;
+};

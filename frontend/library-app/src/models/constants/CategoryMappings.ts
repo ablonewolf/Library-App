@@ -1,11 +1,11 @@
 interface mapping {
-    [key: string]: string
+  [key: string]: string;
 }
 
 export const CategoryMappings: mapping = {
-    'fe': 'Front End',
-    'be': 'Back End',
-    'devops': 'DevOps',
-    'database': 'Database',
-    'linux': 'Linux'
-}
+  fe: "Front End",
+  be: "Back End",
+  devops: "DevOps",
+  database: "Database",
+  linux: "Linux",
+};

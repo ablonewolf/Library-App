@@ -1,1 +1,1 @@
-export const userReviewOfBook = "/reviews/secure/existsReview?bookId="
+export const userReviewOfBook = "/reviews/secure/existsReview?bookId=";
