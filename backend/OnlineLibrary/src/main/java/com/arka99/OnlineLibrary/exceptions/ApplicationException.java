@@ -1,5 +1,8 @@
 package com.arka99.OnlineLibrary.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class ApplicationException extends RuntimeException {
     private final String code;
 
@@ -8,7 +11,4 @@ public class ApplicationException extends RuntimeException {
         this.code = code;
     }
 
-    public String getCode() {
-        return code;
-    }
 }

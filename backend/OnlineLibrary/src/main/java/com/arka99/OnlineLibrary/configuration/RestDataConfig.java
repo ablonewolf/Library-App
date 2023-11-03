@@ -30,18 +30,18 @@ public class RestDataConfig implements RepositoryRestConfigurer {
 //        configure CORS mapping
         String allowedOrigin = "http://localhost:3000";
         cors.addMapping(config.getBasePath() + "/**")
-            .allowedOrigins(allowedOrigin);
+                .allowedOrigins(allowedOrigin);
     }
 
     private void disableHttpMethods(Class objectClass,
                                     RepositoryRestConfiguration config,
                                     HttpMethod[] unsupportedMethods) {
         config.getExposureConfiguration()
-              .forDomainType(objectClass)
-              .withItemExposure(((metdata, httpMethods) ->
-                      httpMethods.disable(unsupportedMethods)))
-              .withCollectionExposure(((metdata, httpMethods) ->
-                      httpMethods.disable(unsupportedMethods)));
+                .forDomainType(objectClass)
+                .withItemExposure(((metdata, httpMethods) ->
+                        httpMethods.disable(unsupportedMethods)))
+                .withCollectionExposure(((metdata, httpMethods) ->
+                        httpMethods.disable(unsupportedMethods)));
     }
 
 }

@@ -5,7 +5,9 @@ import com.arka99.OnlineLibrary.entity.Review;
 import com.arka99.OnlineLibrary.exceptions.CustomAuthenticationResponse;
 import com.arka99.OnlineLibrary.service.ReviewService;
 import com.arka99.OnlineLibrary.utils.ExtractJWT;
+
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +33,7 @@ public class ReviewController {
             @RequestParam(defaultValue = "10")
             Integer size) {
         return reviewService.findReviewByBook(bookId, PageRequest.of(page - 1,
-                                                                     size));
+                size));
     }
 
     @PostMapping(CREATE_REVIEW)

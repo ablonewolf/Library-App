@@ -6,13 +6,14 @@ import com.arka99.OnlineLibrary.entity.Review;
 import com.arka99.OnlineLibrary.exceptions.ResourceAlreadyExistsException;
 import com.arka99.OnlineLibrary.service.BookService;
 import com.arka99.OnlineLibrary.service.ReviewService;
-import java.sql.Date;
-import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 import static com.arka99.OnlineLibrary.common.constants.ExceptionConstants.REVIEW_ALREADY_EXISTS;
 
@@ -34,12 +35,12 @@ public class ReviewServiceImpl implements ReviewService {
             throw new ResourceAlreadyExistsException(REVIEW_ALREADY_EXISTS);
         } else {
             Review review = Review.builder()
-                                  .book(bookService.findBookByID(reviewRequest.bookId()))
-                                  .rating(reviewRequest.rating())
-                                  .userEmail(userEmail)
-                                  .reviewDescription(reviewRequest.description())
-                                  .date(Date.valueOf(LocalDate.now()))
-                                  .build();
+                    .book(bookService.findBookByID(reviewRequest.bookId()))
+                    .rating(reviewRequest.rating())
+                    .userEmail(userEmail)
+                    .reviewDescription(reviewRequest.description())
+                    .date(Date.valueOf(LocalDate.now()))
+                    .build();
             reviewRepository.save(review);
         }
     }

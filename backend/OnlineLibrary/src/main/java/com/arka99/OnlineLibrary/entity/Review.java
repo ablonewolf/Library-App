@@ -2,8 +2,9 @@ package com.arka99.OnlineLibrary.entity;
 
 import com.arka99.OnlineLibrary.common.entity.BaseEntity;
 import jakarta.persistence.*;
-import java.util.Date;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Builder

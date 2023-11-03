@@ -19,9 +19,9 @@ public class SecurityConfiguration {
                 // disable cross request site forgery
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(configurer ->
-                                               configurer
-                                                       .requestMatchers("/api/books/secure/**").authenticated()
-                                                       .requestMatchers("/api/books/**", "/api/reviews/**").permitAll())
+                        configurer
+                                .requestMatchers("/api/books/secure/**").authenticated()
+                                .requestMatchers("/api/books/**", "/api/reviews/**").permitAll())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
                 // add cors filter
                 .cors(Customizer.withDefaults())
