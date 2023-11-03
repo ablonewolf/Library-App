@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthState } from "@okta/okta-auth-js/lib/types/AuthState";
 import { useEffect, useState } from "react";
 import { checkOutBook } from "../../APIConsumMethods/checkOutBook";
+import { ReviewRender } from "./ReviewRender";
 
 export const CheckoutAndReviewBox: React.FC<{
   book: BookModel | undefined;
@@ -15,43 +16,30 @@ export const CheckoutAndReviewBox: React.FC<{
 }> = (props) => {
   const [buttonString, setButtonString] = useState("Sign In");
   const [isButtonDisabled, setIsButtonDisabled] = useState("");
-  const defaultReviewText = "Sign in to Leave a Review.";
-  const [reviewText, setReviewText] = useState("");
-
-  const changeCheckOutButtonString = () => {
-    if (props.authState?.isAuthenticated) {
-      if (props.isBookCheckedOut) {
-        setButtonString("Book Already Checked out. Enjoy");
-        setIsButtonDisabled("disabled");
-      } else if (props.currentBooksCheckoutCount === 5) {
-        setButtonString("Too many books checked out.");
-        setIsButtonDisabled("disabled");
-      } else {
-        setButtonString("Check out");
-      }
-    }
-  };
-
-  const changeReviewText = () => {
-    if (props.authState?.isAuthenticated) {
-      if (props.isReviewLeft) {
-        setReviewText("Thanks for your review");
-      } else {
-        setReviewText("Please Leave a Review");
-      }
-    } else {
-      setReviewText(defaultReviewText);
-    }
-  };
+  const [linkText, setLinkText] = useState("/login");
 
   useEffect(() => {
+    const changeCheckOutButtonString = () => {
+      if (props.authState?.isAuthenticated) {
+        setLinkText("#");
+        if (props.isBookCheckedOut) {
+          setButtonString("Book Already Checked out. Enjoy");
+          setIsButtonDisabled("disabled");
+        } else if (props.currentBooksCheckoutCount === 5) {
+          setButtonString("Too many books checked out.");
+          setIsButtonDisabled("disabled");
+        } else {
+          setButtonString("Check out");
+        }
+      } else {
+        setLinkText("/login");
+      }
+    };
     changeCheckOutButtonString();
-    changeReviewText();
   }, [
     props.authState,
     props.isBookCheckedOut,
     props.currentBooksCheckoutCount,
-    buttonString,
     isButtonDisabled,
     props.isReviewLeft,
   ]);
@@ -85,7 +73,7 @@ export const CheckoutAndReviewBox: React.FC<{
           </div>
         </div>
         <Link
-          to="#"
+          to={linkText}
           className={`btn btn-success btn-lg ${isButtonDisabled}`}
           onClick={() =>
             checkOutBook(
@@ -101,7 +89,10 @@ export const CheckoutAndReviewBox: React.FC<{
         <p className="mt-3">
           This number can change until placing order is complete.
         </p>
-        <p>{reviewText}</p>
+        <ReviewRender
+          authState={props.authState}
+          isReviewLeft={props.isReviewLeft}
+        />
       </div>
     </div>
   );
