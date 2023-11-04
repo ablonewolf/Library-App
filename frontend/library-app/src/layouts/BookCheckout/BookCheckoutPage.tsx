@@ -58,7 +58,7 @@ export const BookCheckoutPage = () => {
       setIsLoadingReviews(false);
       setHttpError(error.message);
     });
-  }, [bookId]);
+  }, [bookId, isReviewLeft]);
 
   // fetch current checkout books count
   useEffect(() => {
@@ -153,6 +153,7 @@ export const BookCheckoutPage = () => {
             setIsBookCheckedOut={setIsBookCheckedOut}
             authState={authState}
             isReviewLeft={isReviewLeft}
+            setIsReviewLeft={setIsReviewLeft}
           />
         </div>
         <hr />
@@ -185,6 +186,7 @@ export const BookCheckoutPage = () => {
           setIsBookCheckedOut={setIsBookCheckedOut}
           authState={authState}
           isReviewLeft={isReviewLeft}
+          setIsReviewLeft={setIsReviewLeft}
         />
         <hr />
         <LatestReviews reviews={reviews} bookId={bookId} mobile={true} />

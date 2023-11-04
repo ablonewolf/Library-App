@@ -4,12 +4,18 @@ import { LeaveReview } from "../../utils/LeaveReview";
 
 export const ReviewRender: React.FC<{
   authState: AuthState | null;
+  bookId: number | undefined;
   isReviewLeft: boolean;
+  setIsReviewLeft: (value: boolean) => void;
 }> = (props: any) => {
   if (props.authState?.isAuthenticated && !props.isReviewLeft) {
     return (
       <p>
-        <LeaveReview />
+        <LeaveReview
+          authState={props.authState}
+          bookId={props.bookId}
+          setIsReviewLeft={props.setIsReviewLeft}
+        />
       </p>
     );
   } else if (props.authState?.isAuthenticated && props.isReviewLeft) {
